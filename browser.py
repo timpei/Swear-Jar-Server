@@ -1,5 +1,6 @@
 # all the imports
 import json
+import os
 import time
 import swears
 from pymongo import MongoClient
@@ -335,5 +336,7 @@ def getAssociatedSwearWord(fromNumber, swearWord):
 def index():
     return render_template('index.html')
 
+
 if __name__ == '__main__':
-    app.run(port=80)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
