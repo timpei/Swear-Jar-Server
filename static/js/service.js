@@ -4,6 +4,16 @@ service.getUser = function(onSuccess){
 };
 
 service.getWhat = function(userId, onSuccess){
+  //function(){
+  result = {
+        list : [{'word': 'Duck', 'count': 123},
+		{'word': 'Crap', 'count': 45},
+                {'word': 'Poop', 'count':145}]
+      };
+      onSuccess(result);
+   // }
+
+  /**
   var url = '/data/words/' + userId + '/' + new Date().getTime();
   $.ajax({
     url: url,
@@ -16,6 +26,7 @@ service.getWhat = function(userId, onSuccess){
       onSuccess(result);
     }
   });
+  **/
 };
 
 

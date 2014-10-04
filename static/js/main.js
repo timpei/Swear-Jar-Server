@@ -38,7 +38,6 @@ var fbInit = function($scope){
 
   (function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
-    debugger;
     if (d.getElementById(id)) {return;}
     js = d.createElement(s); js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js";

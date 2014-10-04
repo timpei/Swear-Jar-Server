@@ -10,6 +10,20 @@ var loadDashboard= function($scope){
 var loadWhat = function($scope){
   service.getWhat($scope.userId, function(response){
     $scope.what = response;
+    chartFormat = [{key:'swear words',
+		   values: response.list}];
+    
+    var chart = nv.models.discreteBarChart() 
+	.x(function(d) { return d.word })    //Specify the data accessors.
+	.y(function(d) { return d.count })
+        .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
+	.tooltips(false)        //Don't show tooltips
+	.showValues(true)       //...instead, show the bar value right on top of each bar.
+	.transitionDuration(350);
+    d3.select('#what-chart')
+    .datum(chartFormat)
+    .call(chart);
+    
   });
 };
 
