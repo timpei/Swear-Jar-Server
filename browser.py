@@ -93,16 +93,16 @@ def logSentMessage():
 
 		toName = getMemberName(toNumber)
 
-		# Update the master table
-		messages_collection.insert({
-			"reference_number": fromNumber,
-			"swear_words": swearWords, 
-			"score": score,
-			"text": message,
-			"time": cur_time,
-			"toName": toName,
-			"toNumber": toNumber
-			});
+	# Update the master table
+	messages_collection.insert({
+		"reference_number": fromNumber,
+		"swear_words": swearWords, 
+		"score": score,
+		"text": message,
+		"time": cur_time,
+		"toName": toName,
+		"toNumber": toNumber
+		});
 
 	# Compute and store the new value of the swear jar
 	cur_jar = jars_collection.find_one({"fromNumber": fromNumber})
@@ -159,16 +159,16 @@ def logReceiveMessage():
 
 		toName = getMemberName(toNumber)
 
-		# Update the master table
-		messages_colection.insert({
-			"reference_number": toNumber,
-			"swear_words": swearWords, 
-			"score": score,
-			"text": message,
-			"time": cur_time,
-			"toName": toName, # ERROR HERE, we need the name from registration table
-			"toNumber": toNumber
-			});
+	# Update the master table
+	messages_colection.insert({
+		"reference_number": toNumber,
+		"swear_words": swearWords, 
+		"score": score,
+		"text": message,
+		"time": cur_time,
+		"toName": toName, # ERROR HERE, we need the name from registration table
+		"toNumber": toNumber
+		});
 
 	return jsonify(**{
 		"success": exitCode
