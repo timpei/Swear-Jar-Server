@@ -3,29 +3,52 @@ var loadDashboard= function($scope){
   service.getUser(function(response){
     $scope.userId = response.id;
     $scope.userName = response.first_name + ' ' + response.last_name;
+
+    loadWho($scope);
     loadWhat($scope);
+    loadWhy($scope);
   });
 };
 
 var loadWhat = function($scope){
   service.getWhat($scope.userId, function(response){
     $scope.what = response;
-    chartFormat = [{key:'swear words',
-		   values: response.list}];
-    
-    var chart = nv.models.discreteBarChart() 
-	.x(function(d) { return d.word })    //Specify the data accessors.
-	.y(function(d) { return d.count })
-        .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
-	.tooltips(false)        //Don't show tooltips
-	.showValues(true)       //...instead, show the bar value right on top of each bar.
-	.transitionDuration(350);
-    d3.select('#what-chart')
-    .datum(chartFormat)
-    .call(chart);
+    charting.drawBarChart(response.list, '#what-chart');
     
   });
 };
 
+var loadWho = function($scope){
+  service.getWho($scope.userId, function(response){
+
+    var toArray = transformWhoData(response['to']);
+    charting.drawDonutChart(toArray, '#who-chart-to');
+
+    var fromArray = transformWhoData(response['from']);
+    charting.drawDonutChart(fromArray, '#who-chart-from');
+
+  });
+};
+
+var transformWhoData = function(toArray){
+   var whoData = [];
+   for (var key in toArray) {
+      if (toArray.hasOwnProperty(key)) {
+         whoData.push(
+             {
+               "label": key, 
+               "value": toArray[key]
+             });
+      }
+   }  
+   return whoData;
+};
 
 
+var loadWhy = function($scope){
+  service.getWhy($scope.userId, function(response){
+    $scope.why = response;
+    charting.drawWordCloud(response.list, 'canvas');
+
+  });
+};

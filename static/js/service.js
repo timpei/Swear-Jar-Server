@@ -36,8 +36,35 @@ service.getWho = function(userId, onSuccess){
   $.ajax({
     method: 'GET',
     url: url,
-    success: onSuccess
-     
+    success: onSuccess,
+    error: function(){
+	result = {
+	  'to' : { 
+	    '1234512333' : 100,
+	    '6507381234' : 50 
+	   },
+	  'from' : {
+	    '1234512333' : 8,
+	    '6507381234' : 2 
+	   }
+	};
+        onSuccess(result);
+    }
   });
 };
 
+service.getWhy = function(userId, onSuccess){
+
+  var url = 'data/why/' + userId + '/' + new Date().getTime() + '/duck';
+  $.ajax({
+    method: 'GET',
+    url: url,
+    success: onSuccess,
+    error: function(){
+      result = {
+        list: [['foo', 21],['bar', 13],['cheese', 16]]
+      };
+      onSuccess(result);
+    }
+  });
+};

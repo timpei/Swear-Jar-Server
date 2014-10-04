@@ -62,16 +62,27 @@
             </div>
         </div>
       </div>
-      <div class="col-xs-6" >
+      <div class="col-xs-12" >
         <div class="well">
-          <h4>Why</h4>
+          <h4>Who</h4>
+          <div class="row">
+            <div class="col-xs-6">
+              <svg id="who-chart-to" style="height:300px;"></svg>
+            </div>
+
+            <div class="col-xs-6">
+              <svg id="who-chart-from" style="height:300px;"></svg>
+            </div>
+          </div>
         </div>
+       </div>
       </div>
     </div>
     <div id="dashboard-labels" class="row">
       <div class="col-xs-12" >
-        <div class="well" >
-          <h4>Who</h4>
+        <div class="well">
+          <h4>Why</h4>
+          <canvas id="canvas" style="height:300px;"></canvas>
         </div>
       </div>
     </div>
@@ -81,6 +92,9 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="../static/libs/nv.d3.min.js"></script>
 <script src="../static/js/main.js"></script>
+<script src="../static/js/charting.js"></script>
+<script src="../static/js/service.js"></script>
 <script src="../static/libs/jquery-1.11.1.min.js"></script> <script src="../static/js/service.js"></script> <script src="../static/js/dashboard.js"></script>
+<script src="../static/libs/wordcloud2.js"></script>
 </body>
 </html>
