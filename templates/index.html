@@ -3,14 +3,30 @@
 <head>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 </head>
-<body ng-app="swearJar">
-
-  <div>
-    <div ng-include src="'nav.html'"></div>
+<body ng-app="swearJar" ng-controller="SwearJarController">
+  <div id="loginPage" ng-if="!loggedIn" class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h1>Swear Jar</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div id="loginKeys" class="col-xs-12 text-center">
+        <button class="btn" ng-click="login()">Login with Facebook</button>
+      </div>
+    </div>
+    
+  </div>
+  <div id="dashboard" ng-if="loggedIn" class="container">
+    <header class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-brand" ng-bind="userName">
+      </div>
+    </header>
   </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-<script src="js/main.js"></script>
+<script src="../static/js/main.js"></script>
+<script src="../static/js/dashboard.js"></script>
 
 </body>
 </html>
