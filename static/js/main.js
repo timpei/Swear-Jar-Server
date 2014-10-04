@@ -18,15 +18,9 @@ app.controller('SwearJarController', function($scope){
   };
 });
 
-var loadDashboard= function($scope){
-  FB.api('/me', {fields: 'first_name, last_name'}, function(response){
-    $scope.userName = response.first_name + ' ' + response.last_name;
-  });
-};
 
 var statusChangeCallback = function(response, $scope){
   if(response.status == 'connected'){
-    $scope.loggedIn = true;
     loadDashboard($scope);
   }
 };
@@ -44,6 +38,7 @@ var fbInit = function($scope){
 
   (function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
+    debugger;
     if (d.getElementById(id)) {return;}
     js = d.createElement(s); js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js";
@@ -51,13 +46,4 @@ var fbInit = function($scope){
     
   }(document, 'script', 'facebook-jssdk'));
 };
-
-
-
-
-
-
-
-
-
 
