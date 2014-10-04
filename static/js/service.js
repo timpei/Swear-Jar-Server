@@ -62,8 +62,8 @@ service.getWhy = function(userId, onSuccess){
     success: onSuccess,
     error: function(){
       result = {
-        list: [['foo', 21],['bar', 13],['cheese', 16]]
-      };
+        list: [['duck', 21],['crap', 13],['poop', 16], ['frack', 5], ['jack', 17]]
+        };
       onSuccess(result);
     }
   });

@@ -48,7 +48,6 @@ var transformWhoData = function(toArray){
 var loadWhy = function($scope){
   service.getWhy($scope.userId, function(response){
     $scope.why = response;
-    charting.drawWordCloud(response.list, 'canvas');
-
+    charting.drawWordCloud(response.list, 'why-chart');
   });
 };

@@ -36,5 +36,20 @@ charting.drawDonutChart = function(list, targetId){
 
 
 charting.drawWordCloud = function(list, targetId) {
-  WordCloud(document.getElementById(targetId), {'list': list });
+  // WordCloud(document.getElementById(targetId), {'list': list });
+  var options = {
+    list: list,
+    gridSize: Math.round(16 * $('#why-chart').width() / 1024),
+        // weightFactor: function (size) {
+        //   return Math.pow(size, 2.3) * $('#why-chart').width() / 1024;
+        //   },
+        fontFamily: 'Times, serif',
+        color: function (word, weight) {
+          return (weight === 12) ? '#f02222' : '#c09292';
+      },
+      rotateRatio: 0.5,
+      backgroundColor: '#E3E3E3'
+  }
+
+  WordCloud(document.getElementById(targetId), options);
 };
