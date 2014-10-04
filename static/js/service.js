@@ -36,8 +36,20 @@ service.getWho = function(userId, onSuccess){
   $.ajax({
     method: 'GET',
     url: url,
-    success: onSuccess
-     
+    success: onSuccess,
+    error: function(){
+	result = {
+	  'to' : { 
+	    '1234512333' : 100,
+	    '6507381234' : 50 
+	   },
+	  'from' : {
+	    '1234512333' : 8,
+	    '6507381234' : 2 
+	   }
+	};
+        onSuccess(result);
+    }
   });
 };
 
