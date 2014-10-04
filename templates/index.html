@@ -15,13 +15,30 @@
         <button class="btn" ng-click="login()">Login with Facebook</button>
       </div>
     </div>
-    
   </div>
+
   <div id="dashboard" ng-if="loggedIn" class="container">
     <header class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-brand" ng-bind="userName">
       </div>
     </header>
+    <div id="dashboard-labels" class="row">
+      <div class="col-sm-3" style="padding-top:150px;">
+        <div class="well">
+          <h4>Who</h4>
+        </div>
+      </div>
+      <div class="col-sm-3" style="padding-top:250px;">
+        <div class="well">
+          <h4>Why</h4>
+        </div>
+      </div>
+      <div class="col-sm-3" style="padding-top:150px;">
+        <div class="well" >
+          <h4>What</h4>
+        </div>
+      </div>
+    </div>
   </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
