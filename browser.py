@@ -11,6 +11,10 @@ def connect_db():
     # returns a pymongo db instance
     return ""
 
+@app.route('/')
+def hello():
+    return render_template('index.html')
+
 @app.before_request
 def before_request():
     g.db = connect_db()
@@ -21,4 +25,5 @@ def teardown_request(exception):
     return
 
 if __name__ == '__main__':
+    app.debug = True
     app.run(host='0.0.0.0')
