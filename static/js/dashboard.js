@@ -6,6 +6,7 @@ var loadDashboard= function($scope){
 
     loadWho($scope);
     loadWhat($scope);
+    loadWhy($scope);
   });
 };
 
@@ -40,7 +41,14 @@ var transformWhoData = function(toArray){
              });
       }
    }  
-   debugger;
    return whoData;
 };
 
+
+var loadWhy = function($scope){
+  service.getWhy($scope.userId, function(response){
+    $scope.why = response;
+    charting.drawWordCloud(response.list, 'canvas');
+
+  });
+};

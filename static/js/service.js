@@ -53,3 +53,18 @@ service.getWho = function(userId, onSuccess){
   });
 };
 
+service.getWhy = function(userId, onSuccess){
+
+  var url = 'data/why/' + userId + '/' + new Date().getTime() + '/duck';
+  $.ajax({
+    method: 'GET',
+    url: url,
+    success: onSuccess,
+    error: function(){
+      result = {
+        list: [['foo', 21],['bar', 13],['cheese', 16]]
+      };
+      onSuccess(result);
+    }
+  });
+};

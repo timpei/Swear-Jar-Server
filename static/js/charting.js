@@ -33,3 +33,8 @@ charting.drawDonutChart = function(list, targetId){
     .transition().duration(350)
     .call(chart); 
 };
+
+
+charting.drawWordCloud = function(list, targetId) {
+  WordCloud(document.getElementById(targetId), {'list': list });
+};
