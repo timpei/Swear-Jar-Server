@@ -1,7 +1,7 @@
 # all the imports
 import json
 import time
-#import dbconf
+import swears
 from pymongo import MongoClient
 
 from flask import Flask, request, Response, session, g, redirect, url_for, abort, render_template, flash, jsonify
