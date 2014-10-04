@@ -1,0 +1,3 @@
+to authenticate, add file dbconf.py with
+USER = <username>
+PASS = <pass>
