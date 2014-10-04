@@ -14,6 +14,10 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 client = MongoClient(DB_URL)
 
+@app.route('/')
+def hello():
+    return render_template('index.html')
+
 @app.before_request
 def before_request():
     g.db = client.swear_jar
