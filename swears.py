@@ -1,5 +1,6 @@
 
 # all lower case
 swearList = {
-	"fuck": 1
+	"fuck": 1,
+	"shit": 1
 }

@@ -28,7 +28,10 @@ def before_request():
 #    return
 
 def getSwearScore(word):
-    return 0
+    if word in swears.swearList:
+        return swears.swearList[word]
+    else:
+        return 0
 
 def trimWord(word):
     return word.lower().strip('.,!?:"\'')
@@ -36,9 +39,11 @@ def trimWord(word):
 def getMemberName(number):
 
     members_collection = g.db.member_numbers
-    name = members_collection.find_one({"number": number})
-    
-    return name
+    member = members_collection.find_one({"number": number})
+    if member is None:
+        return number
+    else:
+        return member["name"]
 
 @app.route('/message/send', methods=['POST'])
 def logSentMessage():
@@ -58,7 +63,7 @@ def logSentMessage():
     for word in words:
         score += getSwearScore(trimWord(word))
         if score > 0:
-            swearWords.append(word)
+            swearWords.append(trimWord(word))
 
     if len(swearWords) != 0:
         # count freq
@@ -67,31 +72,39 @@ def logSentMessage():
         
         # Store in the per user word table - WHAT do you say
         if word_freq is None:
-            word_freq = {"fromNumber": fromNumber, "freq": []}
+            word_freq = {}
             for word in swearWords:
-                word_freq['freq'][word] = word_freq.get(word, 0) + 1
+                word_freq[word] = word_freq.get(word, 0) + 1
             word_freq_collection.insert({
                 "fromNumber": fromNumber, 
                 "freq": word_freq
                 })
         else:
+            word_freq = word_freq['freq']
             for word in swearWords:
-                word_freq['freq'][word] = word_freq.get(word, 0) + 1
-            word_freq_collection.update({"fromNumber": fromNumber}, {"$set": {"freq": word_freq['freq']}})
+                word_freq[word] = word_freq.get(word, 0) + 1
+            word_freq_collection.update({"fromNumber": fromNumber}, {"$set": {"freq": word_freq}})
 
         #FromUser freq - WHO are you swearing at?
         #Todo: might need to catch error where member does not exist
         from_member_collection = g.db.from_member_freq
         member_freq = from_member_collection.find_one({"fromNumber": fromNumber})
         if member_freq is None:
-            from_member_collection.insert({
-                "fromNumber": fromNumber, 
-                "freq": len(swearWords)
+            from_member_collection.insert(
+                {
+                    "fromNumber": fromNumber,
+                    "to": {
+                        toNumber: len(swearWords)
+                    }
                 })
         else:
-            from_member_collection.update({"fromNumber": fromNumber}, {"$set": {"freq": member_freq['freq'] + len(swearWords)}})
+            to_member_freq = member_freq["to"]
+            if not toNumber in to_member_freq:
+                to_member_freq[toNumber] = len(swearWords)
+            else:
+                to_member_freq[toNumber] += len(swearWords)
 
-        toName = getMemberName(toNumber)
+            from_member_collection.update({"fromNumber": fromNumber}, {"$set": {"to": to_member_freq}})
 
     # Update the master table
     messages_collection.insert({
@@ -100,7 +113,9 @@ def logSentMessage():
         "score": score,
         "text": message,
         "time": cur_time,
-        "toName": toName,
+        "fromName": getMemberName(fromNumber),
+        "fromNumber": fromNumber,
+        "toName": getMemberName(toNumber),
         "toNumber": toNumber
         });
 
@@ -141,7 +156,7 @@ def logReceiveMessage():
     for word in words:
         score += getSwearScore(trimWord(word))
         if score > 0:
-            swearWords.append(word)
+            swearWords.append(trimWord(word))
 
     if len(swearWords) != 0:
 
@@ -150,23 +165,31 @@ def logReceiveMessage():
         to_member_collection = g.db.to_member_freq
         member_freq = to_member_collection.find_one({"toNumber": toNumber})
         if member_freq is None:
-            from_member_collection.insert({
+            to_member_collection.insert({
                 "toNumber": toNumber, 
-                "freq": len(swearWords)
+                "from": {
+                    fromNumber: len(swearWords)
+                    }
                 })
         else:
-            from_member_collection.update({"toNumber": toNumber}, {"$set": {"freq": member_freq['freq'] + len(swearWords)}})
+            from_member_freq = member_freq["from"]
+            if not fromNumber in from_member_freq:
+                from_member_freq[fromNumber] = len(swearWords)
+            else:
+                from_member_freq[fromNumber] += len(swearWords)
 
-        toName = getMemberName(toNumber)
+            to_member_collection.update({"toNumber": toNumber}, {"$set": {"from": from_member_freq}})
 
     # Update the master table
-    messages_colection.insert({
+    messages_collection.insert({
         "reference_number": toNumber,
         "swear_words": swearWords, 
         "score": score,
         "text": message,
         "time": cur_time,
-        "toName": toName, # ERROR HERE, we need the name from registration table
+        "fromName": getMemberName(fromNumber),
+        "fromNumber": fromNumber,
+        "toName": getMemberName(toNumber),
         "toNumber": toNumber
         });
 
@@ -174,9 +197,14 @@ def logReceiveMessage():
         "success": exitCode
         })
 
-@app.route('/score/<int:number>', methods=['GET'])
+@app.route('/score/<number>', methods=['GET'])
 def getScore(number):
-    return jsonify(**{"score": 0})
+    jars_collection = g.db.jars
+    jar = jars_collection.find_one({"fromNumber": number})
+    if jar is None:
+        return jsonify(**{"score": 0})
+    else:
+        return jsonify(**{"score": jar['sum']})
 
 @app.route('/register', methods=['PUT'])
 def register():
@@ -197,6 +225,39 @@ def register():
     return jsonify(**{
         "success": exitCode 
         })
+
+
+"""
+Web APIs
+"""
+
+@app.route('/data/words/<int:userNumber>', methods=['GET'])
+@app.route('/data/words/<int:userNumber>/<int:date>', methods=['GET'])
+def getWordFrequency(userNumber, date = 0):
+    word_freq_collection = g.db.word_frequency
+    word_freq = word_freq_collection.find_one({"fromNumber": userNumber})
+
+    if word_freq is None:
+        return jsonify(**{"freq": []})
+    else:
+        return jsonify(**{"freq": word_freq['freq']})
+
+@app.route('/data/who/<int:userNumber>', methods=['GET'])
+@app.route('/data/who/<int:userNumber>/<int:date>', methods=['GET'])
+def getMemberRelationships(userNumber, date = 0):
+    from_freq_collection = g.db.from_member_freq
+    from_freq = from_freq_collection.find_one({"fromNumber": userNumber})
+    to_freq_collection = g.db.to_member_freq
+    to_freq = to_freq_collection.find_one({"toNumber": userNumber})
+
+    return jsonify(**{
+        "from": from_freq["from"], 
+        "to": to_freq["to"]
+        })
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
