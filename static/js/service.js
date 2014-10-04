@@ -7,6 +7,7 @@ service.getWhat = function(userId, onSuccess){
   //function(){
   result = {
         list : [{'word': 'Duck', 'count': 123},
+		{'word': 'Crap', 'count': 45},
                 {'word': 'Poop', 'count':145}]
       };
       onSuccess(result);
