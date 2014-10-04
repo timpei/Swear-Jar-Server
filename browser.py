@@ -1,5 +1,6 @@
 # all the imports
 import json
+import os
 import time
 import swears
 from pymongo import MongoClient
@@ -7,7 +8,7 @@ from pymongo import MongoClient
 from flask import Flask, request, Response, session, g, redirect, url_for, abort, render_template, flash, jsonify
 
 
-DB_URL = "mongodb://localhost:27017"
+DB_URL = "mongodb://admin:admin@ds043220.mongolab.com:43220/swearjar"
 DEBUG = True
 
 app = Flask(__name__)
@@ -106,6 +107,31 @@ def logSentMessage():
 
             from_member_collection.update({"fromNumber": fromNumber}, {"$set": {"to": to_member_freq}})
 
+        # do ass word freq
+        ass_words_collection = g.db.ass_word_frequency
+        for swearWord in swearWords:
+            ass_words_obj = ass_words_collection.find_one({"number": fromNumber, "from": 1, "word": swearWord})
+            if not ass_words_obj is None:
+                ass_words = ass_words_obj["ass_words"]
+            else: 
+                ass_words = {}
+
+            for word in words:
+                trimed_word = trimWord(word)
+                if swearWord != trimed_word:
+                    ass_words[trimed_word] = ass_words.get(trimed_word, 0) + 1
+            if ass_words_obj is None:
+                ass_words_collection.insert({
+                    "number": fromNumber,
+                    "from": 1,
+                    "word": swearWord,
+                    "ass_words": ass_words,
+                    })
+            else:
+                print ass_words
+                ass_words_collection.update({"number": fromNumber, "from": 1, "word": swearWord}, {"$set": {"ass_words": ass_words}})
+
+
     # Update the master table
     messages_collection.insert({
         "reference_number": fromNumber,
@@ -179,6 +205,31 @@ def logReceiveMessage():
                 from_member_freq[fromNumber] += len(swearWords)
 
             to_member_collection.update({"toNumber": toNumber}, {"$set": {"from": from_member_freq}})
+
+
+        # do ass word freq
+        ass_words_collection = g.db.ass_word_frequency
+        for swearWord in swearWords:
+            ass_words_obj = ass_words_collection.find_one({"number": toNumber, "from": 0, "word": swearWord})
+            if not ass_words_obj is None:
+                ass_words = ass_words_obj["ass_words"]
+            else: 
+                ass_words = {}
+            
+            for word in words:
+                trimed_word = trimWord(word)
+                if swearWord != trimed_word:
+                    ass_words[trimed_word] = ass_words.get(trimed_word, 0) + 1
+            if ass_words_obj is None:
+                ass_words_collection.insert({
+                    "number": toNumber,
+                    "from": 0,
+                    "word": swearWord,
+                    "ass_words": ass_words,
+                    })
+            else:
+                ass_words_collection.update({"number": toNumber, "from": 0, "word": swearWord}, {"$set": {"ass_words": ass_words}})
+
 
     # Update the master table
     messages_collection.insert({
@@ -261,10 +312,31 @@ def getMemberRelationships(userNumber, date = 0):
         "to": to_freq["to"]
         })
 
+@app.route('/data/why/<fromNumber>/<swearWord>', methods=['GET'])
+def getAssociatedSwearWord(fromNumber, swearWord):
+    ass_words_collection = g.db.ass_word_frequency
+    sent_obj = ass_words_collection.find_one({"number": fromNumber, "from": 1, "word": swearWord})
+    if sent_obj is None:
+        sent_obj = {}
+    else:
+        sent_obj = sent_obj['ass_words']
+    received_obj = ass_words_collection.find_one({"number": fromNumber, "from": 0, "word": swearWord})
+    if received_obj is None:
+        received_obj = {} 
+    else:
+        received_obj = received_obj['ass_words']
+
+    return jsonify(**{
+        "from": sent_obj,
+        "to": received_obj
+        })
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
