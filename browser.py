@@ -230,9 +230,15 @@ def register():
 """
 Web APIs
 """
+@app.route('/data/member/<userNumber>', methods=['GET'])
+def getUserInfo(userNumber):
+    user_collection = g.db.member_numbers
+    member_data = user_collection.find_one({"number": userNumber})
+    member_data.pop("_id")
+    return jsonify(**member_data)
 
-@app.route('/data/words/<int:userNumber>', methods=['GET'])
-@app.route('/data/words/<int:userNumber>/<int:date>', methods=['GET'])
+@app.route('/data/words/<userNumber>', methods=['GET'])
+@app.route('/data/words/<userNumber>/<int:date>', methods=['GET'])
 def getWordFrequency(userNumber, date = 0):
     word_freq_collection = g.db.word_frequency
     word_freq = word_freq_collection.find_one({"fromNumber": userNumber})
@@ -242,8 +248,8 @@ def getWordFrequency(userNumber, date = 0):
     else:
         return jsonify(**{"freq": word_freq['freq']})
 
-@app.route('/data/who/<int:userNumber>', methods=['GET'])
-@app.route('/data/who/<int:userNumber>/<int:date>', methods=['GET'])
+@app.route('/data/who/<userNumber>', methods=['GET'])
+@app.route('/data/who/<userNumber>/<int:date>', methods=['GET'])
 def getMemberRelationships(userNumber, date = 0):
     from_freq_collection = g.db.from_member_freq
     from_freq = from_freq_collection.find_one({"fromNumber": userNumber})
@@ -254,6 +260,7 @@ def getMemberRelationships(userNumber, date = 0):
         "from": from_freq["from"], 
         "to": to_freq["to"]
         })
+
 
 @app.route('/')
 def index():
