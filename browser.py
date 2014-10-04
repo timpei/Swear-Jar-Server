@@ -21,7 +21,7 @@ def hello():
 
 @app.before_request
 def before_request():
-    g.db = client.swear_jar
+    g.db = client.swearjar
 
 #@app.teardown_request
 #def teardown_request(exception):
