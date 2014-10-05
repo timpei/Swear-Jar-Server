@@ -15,12 +15,12 @@ var loadDashboard= function($scope){
     
   });
   $scope.popWordCloud = function(x){
-    $('#myModal').modal('toggle');
-    $('#wordCloud').empty();
-    $('#myModalLabel').empty();
-    $('#myModalLabel').text('Top Associated Words with '+ x.label);
+    
     service.getWhy($scope.userId, x.label, function(response){
-      
+      $('#myModal').modal('toggle');
+      $('#wordCloud').empty();
+      $('#myModalLabel').empty();
+      $('#myModalLabel').text('Top Associated Words with '+ x.label);  
       transformed = combineHashToArray(response.from, response.to);
       charting.drawWordCloud(transformed, 'wordCloud');
     });
