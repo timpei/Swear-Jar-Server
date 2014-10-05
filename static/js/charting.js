@@ -24,7 +24,7 @@ charting.drawDonutChart = function(list, targetId){
     .x(function(d) { 
       var str = String(d.label);
       
-      return str.substring(0,3) + '-' + str.substring(3,6) + '-' + str.substring(6); })
+      return str; })
     .showLabels(true)     //Display pie labels
     .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
     .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
