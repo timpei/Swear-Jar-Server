@@ -63,6 +63,7 @@ charting.drawTimeseriesChart = function(list, targetId){
     var data = [{key: "Swearing to Others", values: list}];
     var chart = nv.models.lineChart()
       .useInteractiveGuideline(true)
+      .interpolate("basis")
       .x(function(d){ 
         return d.time; 
       })
