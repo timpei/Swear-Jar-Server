@@ -233,7 +233,7 @@ fieldset[disabled] .btn-xl.active {
 
 @media(min-width:768px) {
     .navbar-default {
-        padding: 25px 0;
+        padding: 10px 0;
         border: 0;
         background-color: black;
         -webkit-transition: padding .3s;
@@ -636,6 +636,7 @@ section h3.section-subheading {
 .team-member img {
     margin: 0 auto;
     border: 7px solid #fff;
+    max-width: 260px;
 }
 
 .team-member h4 {
