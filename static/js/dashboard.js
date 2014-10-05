@@ -29,7 +29,7 @@ var loadDashboard= function($scope){
 var loadWhat = function($scope){
   service.getWhat($scope.userId, function(response){
     $scope.what = transformWhoData(response.freq);
-    charting.drawBarChart(transformed, '#what-chart');
+    charting.drawBarChart($scope.what, '#what-chart');
   });
 };
 
