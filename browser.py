@@ -344,8 +344,8 @@ def getMessagesByTime(fromNumber, startdate, enddate):
         "time": {"$gt": startdate, "$lt": enddate}
         })
     swears_sent = [i for i in msg_sent if len(i['swear_words']) != 0]
-    #for swear, idx in enumerate(swears_sent):
-    #    swears_sent[idx].pop("_id")
+    for swear in swears_sent:
+        del swear["_id"]
 
     msg_receieved = messages_collection.find({
         "reference_number": fromNumber,
@@ -353,8 +353,8 @@ def getMessagesByTime(fromNumber, startdate, enddate):
         "time": {"$gt": startdate, "$lt": enddate}
         })
     swears_receieved = [i for i in msg_receieved if len(i['swear_words']) != 0]
-    #for swear, idx in enumerate(swears_receieved):
-    #    swears_receieved[idx].pop("_id")
+    for swear in swears_receieved:
+        del swear["_id"]
 
     print swears_sent
     print swears_receieved
