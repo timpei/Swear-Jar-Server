@@ -54,17 +54,31 @@ charting.drawWordCloud = function(list, targetId) {
 
 
 charting.drawTimeseriesChart = function(list, targetId){
-    var chart = nv.models.linechart()
-    .margin({left:100})
-    .xAxis.axisLabel('Date')
+    debugger;
+    var data = [{key: "line 1", values: list}];
+    var chart = nv.models.cumulativeLineChart()
+      .x(function(d){ 
+        console.log(d);
+        debugger; 
+        return d.time; 
+      })
+      .y(function(d){ 
+        return d.score;
+      });
+    chart.xAxis
+      .axisLabel('Date')
+      .tickFormat(function(d) {
+        return d3.time.format('%x')(new Date(d))
+                                  });
+    /*.xAxis.axisLabel('Date')
     .xAxis.tickFormat(function(d) {
         return d3.time.format('%x')(new Date(d))
     })
     .yAxis.axisLabel('Times Sworn')
-    ;
+    ;*/
 
     d3.select(targetId)
-        .datum(list)
+        .datum(data)
         .call(chart);
 
 };

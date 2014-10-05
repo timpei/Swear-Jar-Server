@@ -9,8 +9,7 @@ var loadDashboard= function($scope){
     $scope.userName = response.name;
       loadWho($scope);
       loadWhat($scope);
-      loadWhy($scope);
-//      loadTimeseries($scope);
+      loadTimeseries($scope);
 
     $scope.$apply();
     
@@ -18,9 +17,7 @@ var loadDashboard= function($scope){
   $scope.popWordCloud = function(x){
     $('#myModal').modal('toggle');
     $('#wordCloud').empty();
-    debugger;
     service.getWhy($scope.userId, x.label, function(response){
-      debugger;
       
       transformed = combineHashToArray(response.from, response.to);
       charting.drawWordCloud(transformed, 'wordCloud');
@@ -99,8 +96,10 @@ var loadWhy = function($scope){
 
 
 var loadTimeseries = function($scope){
+  debugger;
   service.getTimeseries($scope.userId, function(response){
-    var dateArray = transformData(response);
-//    charting.drawTimeseriesChart(dateArray,'#timeseries-chart');
+    debugger;
+    var dateArray = transformData(response.from);
+    charting.drawTimeseriesChart(response.from,'#timeseries-chart');
   });
 };

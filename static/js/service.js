@@ -1,7 +1,6 @@
 var service = {};
 service.getUser = function(onSuccess){
   FB.api('/me', {fields: 'first_name, last_name'}, function(response){
-    debugger;
     var url = '/data/member/' + response.id; 
     $.ajax({
       url: url,
@@ -16,15 +15,16 @@ service.getUser = function(onSuccess){
 };
 
 service.getWhat = function(userId, onSuccess){
-  
-  // result = {
-  //       "freq": {
-  //           "ass": 1, 
-  //           "fuck": 2, 
-  //           "shit": 2
-  //       }
-  //     };
-  // onSuccess(result);
+/*  
+   result = {
+         "freq": {
+             "ass": 1, 
+             "fuck": 2, 
+             "shit": 2
+         }
+       };
+   onSuccess(result);
+   */
   
   var url = '/data/words/' + userId;
   $.ajax({
@@ -68,14 +68,14 @@ service.getWho = function(userId, onSuccess){
 };
 
 service.getWhy = function(userId, word, onSuccess){
-
+/*
   
-  // result = {
-  //       from: {'ass': 23, 'fat': 21, 'you': 14},
-  //       to  : { 'ass': 12, 'poop':12}
-  //     };
-  // onSuccess(result);
-  
+   result = {
+         from: {'ass': 23, 'fat': 21, 'you': 14},
+         to  : { 'ass': 12, 'poop':12}
+       };
+   onSuccess(result);
+   */
   var url = '/data/why/' + userId + '/' + word;
   $.ajax({
     method: 'GET',
@@ -92,21 +92,25 @@ service.getWhy = function(userId, word, onSuccess){
 };
 
 
-service.getTimeseries = function(userId, onSuccess){
-  var url = '/data/timeseries/' + userId + '/' + (new Date().getTime()-(30*60*60*24))+ '/' + new Date().getTime();
-  $.ajax({
-    method: 'GET',
-    url: url,
-    success: onSuccess,
-    error: function(){
-      result = {
-        '1412481668461': 23,
-        '1412481663000': 22,
-        '1412481500000': 21,
-        '1412481400000': 22,
-        '1412481300000': 23
-        };
+service.getTimeseries = function(userId, onSuccess){  
+  /*
+    result = {
+      from: [{score: 5, time: 1412460224},{score: 3, time: 1412470224},{score: 4, time:1412480224},{score: 5, time: 1412490224} ],
+      to: [{score: 3, time: 1412470224},{score: 4, time:1412470224} ],
+    }; 
       onSuccess(result);
-    }
-  });
+      */
+   var url = '/data/timeseries/' + userId + '/0/' + new Date().getTime();
+   $.ajax({
+     method: 'GET',
+     url: url,
+     success: onSuccess,
+     error: function(){
+       result = {
+         from: {score: 3, time: 1412470224},
+         to:   {score: 2, time: 1412470224}
+       }; 
+       onSuccess(result);
+     }
+   });
 };
