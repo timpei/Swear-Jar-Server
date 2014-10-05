@@ -338,10 +338,12 @@ def getMemberRelationships(userNumber, date = 0):
     from_freq_collection = g.db.from_member_freq
     from_freq = from_freq_collection.find_one({"fromNumber": userNumber})
     from_ret = {} if from_freq is None else from_freq["to"]
+    from_ret = {getMemberName(number): val for number, val in from_ret.items()}
 
     to_freq_collection = g.db.to_member_freq
     to_freq = to_freq_collection.find_one({"toNumber": userNumber})
     to_ret = {} if to_freq is None else to_freq["from"]
+    to_ret = {getMemberName(number): val for number, val in to_ret.items()}
 
     return jsonify(**{
         "from": from_ret,
