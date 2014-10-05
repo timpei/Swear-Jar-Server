@@ -257,12 +257,9 @@ def getScore(number):
     else:
         return jsonify(**{"score": jar['sum']})
 
-@app.route('/register', methods=['POST'])   
-def register():
-    print request.form
-    print blah
-    """
-    newNumber = request.form["number"]
+@app.route('/register<number>', methods=['POST'])   
+def register(number):
+    newNumber = number
     newName = request.form["name"]
     facebookId = request.form["facebook_id"]
 
@@ -279,8 +276,6 @@ def register():
     return jsonify(**{
         "success": exitCode 
         })
-
-    """
 
 
 """
