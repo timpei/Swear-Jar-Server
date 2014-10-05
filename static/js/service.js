@@ -1,7 +1,6 @@
 var service = {};
 service.getUser = function(onSuccess){
   FB.api('/me', {fields: 'first_name, last_name'}, function(response){
-    debugger;
     var url = '/data/member/' + response.id; 
     $.ajax({
       url: url,
@@ -92,21 +91,23 @@ service.getWhy = function(userId, word, onSuccess){
 };
 
 
-service.getTimeseries = function(userId, onSuccess){
-  var url = '/data/timeseries/' + userId + '/' + (new Date().getTime()-(30*60*60*24))+ '/' + new Date().getTime();
-  $.ajax({
-    method: 'GET',
-    url: url,
-    success: onSuccess,
-    error: function(){
-      result = {
-        '1412481668461': 23,
-        '1412481663000': 22,
-        '1412481500000': 21,
-        '1412481400000': 22,
-        '1412481300000': 23
-        };
+service.getTimeseries = function(userId, onSuccess){  
+    result = {
+      from: {score: 3, time: 1412470224},
+      to:   {score: 2, time: 1412470224}
+    }; 
       onSuccess(result);
-    }
-  });
+  // var url = '/data/timeseries/1111112221/0/1412496425512';
+  // $.ajax({
+  //   method: 'GET',
+  //   url: url,
+  //   success: onSuccess,
+  //   error: function(){
+  //     result = {
+  //       from: {score: 3, time: 1412470224},
+  //       to:   {score: 2, time: 1412470224}
+  //     }; 
+  //     onSuccess(result);
+  //   }
+  // });
 };

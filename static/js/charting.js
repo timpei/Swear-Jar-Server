@@ -54,6 +54,7 @@ charting.drawWordCloud = function(list, targetId) {
 
 
 charting.drawTimeseriesChart = function(list, targetId){
+    debugger;
     var chart = nv.models.linechart()
     .margin({left:100})
     .xAxis.axisLabel('Date')
