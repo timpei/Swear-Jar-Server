@@ -279,6 +279,16 @@ def register(number):
         "success": success 
         })
 
+@app.route('/jar/empty/<number>', methods=['POST'])
+def emptyJar(number):
+    jars_collection = g.db.jars
+    jar = jars_collection.find_one({"fromNumber": number})
+
+    if jar is None:
+        return jsonify(**{"success": False})
+    else:
+        jars_collection.update({"fromNumber": number}, {"$set": {"sum": 0}})
+        return jsonify(**{"success": True})
 
 """
 Web APIs
