@@ -43,12 +43,14 @@ charting.drawWordCloud = function(list, targetId) {
   //WordCloud(document.getElementById(targetId), {'list': list });
   var options = {
     list: list,
-    gridSize: Math.round(16 * $('#why-chart').width() / 1024),
+    //gridSize: Math.round(16 * $('#why-chart').width() / 1024),
     fontFamily: 'Times, serif',
         color: function (word, weight) {
           return (weight === 12) ? '#f02222' : '#c09292';
       },
-        rotateRatio: 0.5,
+      minSize: 30,
+      shuffle: 1,
+        //rotateRatio: 0.5,
       backgroundColor: '#E3E3E3'
   }
 
