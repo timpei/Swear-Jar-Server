@@ -41,6 +41,7 @@ charting.drawDonutChart = function(list, targetId){
 
 charting.drawWordCloud = function(list, targetId) {
   //WordCloud(document.getElementById(targetId), {'list': list });
+  console.log("Drawing Cloud: ", list)
   var options = {
     list: list,
     //gridSize: Math.round(16 * $('#why-chart').width() / 1024),
