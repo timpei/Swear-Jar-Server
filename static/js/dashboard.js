@@ -1,6 +1,5 @@
 var loadDashboard= function($scope){
   $scope.loggedIn = true;
-  
   service.getUser(function(response){
     $scope.$apply(function() {
       $scope.message = 'Fetched after 3 seconds'; 
@@ -11,18 +10,18 @@ var loadDashboard= function($scope){
       loadWho($scope);
       loadWhat($scope);
       loadWhy($scope);
+      loadTimeseries($scope);
 
     $scope.$apply();
     
   });
- $scope.popWordCloud = function(x){
-   debugger;
+ /*$scope.popWordCloud = function(x){
    $('body').append(
       '<div class="modal fade">' +
         'hi' +
       '</div>'
    );
- };
+ };*/
   
 };
 
@@ -65,5 +64,13 @@ var loadWhy = function($scope){
   service.getWhy($scope.userId, function(response){
     $scope.why = response;
     charting.drawWordCloud(response.list, 'why-chart');
+  });
+};
+
+
+var loadTimeseries = function($scope){
+  service.getTimeseries($scope.userId, function(response){
+    var dateArray = transformWhoData(response);
+    charting.drawTimeseriesChart(dateArray,'#timeseries-chart');
   });
 };

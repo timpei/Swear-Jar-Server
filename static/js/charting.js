@@ -51,3 +51,21 @@ charting.drawWordCloud = function(list, targetId) {
 
   WordCloud(document.getElementById(targetId), options);
 };
+
+
+charting.drawTimeseriesChart = function(list, targetId){
+    debugger;
+    var chart = nv.models.linechart()
+    .margin({left:100})
+    .xAxis.axisLabel('Date')
+    .xAxis.tickFormat(function(d) {
+        return d3.time.format('%x')(new Date(d))
+    });
+    .yAxis.axisLabel('Times Sworn')
+    ;
+
+    d3.select(targetId)
+        .datum(list)
+        .call(chart);
+
+};
