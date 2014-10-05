@@ -1,6 +1,12 @@
 var service = {};
-service.getUser = function(onSuccess){
+service.getUser = function(fbId, onSuccess){
   FB.api('/me', {fields: 'first_name, last_name'}, onSuccess);
+  var url = '/data/member/' + fbId; 
+  $.ajax({
+    url: url,
+    success: onSuccess,
+    error: function(){}
+  });
 };
 
 service.getWhat = function(userId, onSuccess){
