@@ -6,7 +6,7 @@ var loadDashboard= function($scope){
       console.log('message:' + $scope.message);
     });
     $scope.userId = response.number;
-    $scope.userName = response.first_name + ' ' + response.last_name;
+    $scope.userName = response.name;
       loadWho($scope);
       loadWhat($scope);
       loadWhy($scope);
