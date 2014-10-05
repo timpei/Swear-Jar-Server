@@ -343,14 +343,19 @@ def getMessagesByTime(fromNumber, startdate, enddate):
         "fromNumber": fromNumber,
         "time": {"$gt": startdate, "$lt": enddate}
         })
-    swears_sent = [i.pop("_id") for i in msg_sent if len(i['swear_words']) != 0]
+    swears_sent = [i for i in msg_sent if len(i['swear_words']) != 0]
+    for swear, idx in enumerate(swears_sent):
+        swears_sent[idx].pop("_id")
 
     msg_receieved = messages_collection.find({
         "reference_number": fromNumber,
         "toNumber": fromNumber,
         "time": {"$gt": startdate, "$lt": enddate}
         })
-    swears_receieved = [i.pop("_id") for i in msg_receieved if len(i['swear_words']) != 0]
+    swears_receieved = [i for i in msg_receieved if len(i['swear_words']) != 0]
+    for swear, idx in enumerate(swears_receieved):
+        swears_receieved[idx].pop("_id")
+
     print swears_sent
     print swears_receieved
     return jsonify(**{
