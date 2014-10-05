@@ -7,15 +7,17 @@ var app = angular.module('swearJar', [
 SCOPE = null;
 
 app.controller('SwearJarController', function($scope){
-  $scope.loggedIn = false;
-  fbInit($scope);
-  SCOPE = $scope;
-  $scope.login = function() {
-    console.log('login');
-    FB.login(function(response){
-      statusChangeCallback(response, $scope);
-    });
-  };
+  angular.element(document).ready(function(){
+    $scope.loggedIn = false;
+    fbInit($scope);
+    SCOPE = $scope;
+    $scope.login = function() {
+      console.log('login');
+      FB.login(function(response){
+        statusChangeCallback(response, $scope);
+      });
+    };
+  });
 });
 
 

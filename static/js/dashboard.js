@@ -1,20 +1,36 @@
 var loadDashboard= function($scope){
   $scope.loggedIn = true;
+  
   service.getUser(function(response){
+    $scope.$apply(function() {
+      $scope.message = 'Fetched after 3 seconds'; 
+      console.log('message:' + $scope.message);
+    });
     $scope.userId = response.id;
     $scope.userName = response.first_name + ' ' + response.last_name;
+      loadWho($scope);
+      loadWhat($scope);
+      loadWhy($scope);
 
-    loadWho($scope);
-    loadWhat($scope);
-    loadWhy($scope);
+    $scope.$apply();
+    
   });
+ $scope.popWordCloud = function(x){
+   debugger;
+   $('body').append(
+      '<div class="modal fade">' +
+        'hi' +
+      '</div>'
+   );
+ };
+  
 };
+
 
 var loadWhat = function($scope){
   service.getWhat($scope.userId, function(response){
     $scope.what = response;
     charting.drawBarChart(response.list, '#what-chart');
-    
   });
 };
 
@@ -48,7 +64,6 @@ var transformWhoData = function(toArray){
 var loadWhy = function($scope){
   service.getWhy($scope.userId, function(response){
     $scope.why = response;
-    charting.drawWordCloud(response.list, 'canvas');
-
+    charting.drawWordCloud(response.list, 'why-chart');
   });
 };

@@ -1,100 +1,119 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../static/css/main.css">
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/main.css">
 
-  <link rel="stylesheet" href="../static/libs/nv.d3.css">
-</head>
-<body ng-app="swearJar" ng-controller="SwearJarController">
-  <script>
-    window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '661005694006952',
-      xfbml      : true,
-      version    : 'v2.1'
-    });
-  };
+    <link rel="stylesheet" href="../static/libs/nv.d3.css">
+  </head>
+  <body ng-app="swearJar" ng-controller="SwearJarController">
+  <!--  <script>
+      window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '661005694006952',
+        xfbml      : true,
+        version    : 'v2.1'
+      });
+    };
 
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-    
-  }(document, 'script', 'facebook-jssdk'));
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+      
+    }(document, 'script', 'facebook-jssdk'));
 
-  </script>
-  <div id="loginPage" ng-if="!loggedIn" class="container">
-    <div class="row">
-      <div class="col-xs-12 text-center">
-        <h1>Swear Jar</h1>
+  </script>-->
+    <div id="loginPage" ng-if="!loggedIn" class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h1>Swear Jar</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div id="loginKeys" class="col-xs-12 text-center">
+          <button class="btn" ng-click="login()">Login with Facebook</button>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div id="loginKeys" class="col-xs-12 text-center">
-        <button class="btn" ng-click="login()">Login with Facebook</button>
-      </div>
-    </div>
-  </div>
 
-  <div id="dashboard" ng-if="loggedIn" class="container">
-    <header class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-brand" ng-bind="userName">
+    <div id="dashboard" ng-if="loggedIn" class="container">
+      <header class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-brand" ng-bind="userName">
+        </div>
+      </header>
+      <div id="dashboard-labels" class="row">
+        <div class="col-xs-12">
+          <div class="well">
+            <h4>What</h4>
+            <div class="row">
+              <div class="col-xs-6">
+                <table class="table">
+                  <tr  ng-repeat="x in what.list">
+                    <td ng-bind="x.word"></td>
+                    <td ng-bind="x.count"></td>
+
+                    <!--<td><button ng-click="popWordCloud(x)" class="btn">See Context</button></td>-->
+                  </tr>
+                </table>
+              </div>
+              <div class="col-xs-6">
+                <svg id="what-chart" style="height:300px;"></svg>
+              </div>
+          </div>
+        </div>
+        <div class="col-xs-12" >
+          <div class="well">
+            <h4>Who</h4>
+            <div class="row">
+              <div class="col-xs-6">
+                <svg id="who-chart-to" style="height:300px;"></svg>
+              </div>
+
+              <div class="col-xs-6">
+                <svg id="who-chart-from" style="height:300px;"></svg>
+              </div>
+            </div>
+          </div>
+         </div>
+        </div>
       </div>
-    </header>
-    <div id="dashboard-labels" class="row">
-      <div class="col-xs-12">
-        <div class="well">
-          <h4>What</h4>
-          <div class="row">
-            <div class="col-xs-6">
-              <table>
+      <div id="dashboard-labels" class="row">
+        <div class="col-xs-12" >
+          <div class="well">
+            <h4>Why Not</h4>
+            <div class="row">
+              <div class="col-xs-6">
+
+                <!--   <canvas id="why-chart" style=""></canvas>-->
+              </div>
+
+              <div class="col-xs-6">
+                <table>
                 <tr ng-repeat="x in what.list">
                   <td ng-bind="x.word"></td>
                   <td ng-bind="x.count"></td>
                 </tr>
               </table>
-            </div>
-            <div class="col-xs-6">
-              <svg id="what-chart" style="height:300px;"></svg>
-            </div>
-        </div>
-      </div>
-      <div class="col-xs-12" >
-        <div class="well">
-          <h4>Who</h4>
-          <div class="row">
-            <div class="col-xs-6">
-              <svg id="who-chart-to" style="height:300px;"></svg>
-            </div>
 
-            <div class="col-xs-6">
-              <svg id="who-chart-from" style="height:300px;"></svg>
+              </div>
             </div>
           </div>
         </div>
-       </div>
       </div>
     </div>
-    <div id="dashboard-labels" class="row">
-      <div class="col-xs-12" >
-        <div class="well">
-          <h4>Why</h4>
-          <canvas id="canvas" style="height:300px;"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="../static/libs/nv.d3.min.js"></script>
-<script src="../static/js/main.js"></script>
-<script src="../static/js/charting.js"></script>
-<script src="../static/js/service.js"></script>
-<script src="../static/libs/jquery-1.11.1.min.js"></script> <script src="../static/js/service.js"></script> <script src="../static/js/dashboard.js"></script>
-<script src="../static/libs/wordcloud2.js"></script>
-</body>
-</html>
+    <div class="modal">HII</div>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="../static/libs/nv.d3.min.js"></script>
+  <script src="../static/js/main.js"></script>
+  <script src="../static/js/charting.js"></script>
+  <script src="../static/js/service.js"></script>
+  <script src="../static/libs/jquery-1.11.1.min.js"></script> <script src="../static/js/service.js"></script> <script src="../static/js/dashboard.js"></script>
+  <script src="../static/libs/wordcloud2.js"></script>
+
+  </body>
+  </html>

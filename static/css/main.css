@@ -1,3 +1,9 @@
 body { 
   padding-top: 65px; 
 }
+
+.loginPage{
+  background-image: url('../img/swearjar.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
