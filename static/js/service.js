@@ -1,11 +1,15 @@
 var service = {};
 service.getUser = function(onSuccess){
   FB.api('/me', {fields: 'first_name, last_name'}, function(response){
+    debugger;
     var url = '/data/member/' + response.id; 
     $.ajax({
       url: url,
       success: onSuccess,
-      error: function(){}
+      error: function(){
+        var response = {id :'123', name : 'Clement'};
+        onSuccess(response);
+      }
     });
   });
   
@@ -18,8 +22,11 @@ service.getWhat = function(userId, onSuccess){
     success: onSuccess,
     error: function(){
       result = {
-        freq : {'word': 123,
-                'Poop':145}
+        "freq": {
+            "ass": 1, 
+            "fuck": 2, 
+            "shit": 2
+        }
       };
       onSuccess(result);
     }
