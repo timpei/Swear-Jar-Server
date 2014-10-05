@@ -92,9 +92,10 @@
 
               <div class="col-xs-6">
                 <table>
-                <tr ng-repeat="x in what.list">
-                  <td ng-bind="x.word"></td>
-                  <td ng-bind="x.count"></td>
+                <tr ng-repeat="x in what">
+                  <td ng-bind="x.label"></td>
+                  <td ng-bind="x.value"></td>
+                  <td><button class="btn">Show Context</button></td>
                 </tr>
               </table>
 

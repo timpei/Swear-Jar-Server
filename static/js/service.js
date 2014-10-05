@@ -12,25 +12,14 @@ service.getUser = function(onSuccess){
 };
 
 service.getWhat = function(userId, onSuccess){
-  /**
-  //function(){
-  result = {
-        list : [{'word': 'Duck', 'count': 123},
-		{'word': 'Crap', 'count': 45},
-                {'word': 'Poop', 'count':145}]
-      };
-      onSuccess(result);
-   // }
-   // */
-
   var url = '/data/words/' + userId;
   $.ajax({
     url: url,
     success: onSuccess,
     error: function(){
       result = {
-        list : [{'word': 'Duck', 'count': 123},
-                {'word': 'Poop', 'count':145}]
+        freq : {'word': 123,
+                'Poop':145}
       };
       onSuccess(result);
     }

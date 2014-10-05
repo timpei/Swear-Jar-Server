@@ -6,11 +6,11 @@ var loadDashboard= function($scope){
       console.log('message:' + $scope.message);
     });
     $scope.userId = response.number;
-    $scope.userName = response.first_name + ' ' + response.last_name;
+    $scope.userName = response.name;
       loadWho($scope);
       loadWhat($scope);
       loadWhy($scope);
-      loadTimeseries($scope);
+//      loadTimeseries($scope);
 
     $scope.$apply();
     
@@ -28,8 +28,8 @@ var loadDashboard= function($scope){
 
 var loadWhat = function($scope){
   service.getWhat($scope.userId, function(response){
-    $scope.what = response;
-    charting.drawBarChart(response.list, '#what-chart');
+    $scope.what = transformWhoData(response.freq);
+    charting.drawBarChart($scope.what, '#what-chart');
   });
 };
 
@@ -71,6 +71,6 @@ var loadWhy = function($scope){
 var loadTimeseries = function($scope){
   service.getTimeseries($scope.userId, function(response){
     var dateArray = transformWhoData(response);
-    charting.drawTimeseriesChart(dateArray,'#timeseries-chart');
+//    charting.drawTimeseriesChart(dateArray,'#timeseries-chart');
   });
 };
