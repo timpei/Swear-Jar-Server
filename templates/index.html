@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../static/libs/nv.d3.css">
   </head>
   <body ng-app="swearJar" ng-controller="SwearJarController">
-    <script>
+  <!--  <script>
       window.fbAsyncInit = function() {
       FB.init({
         appId      : '661005694006952',
@@ -25,7 +25,7 @@
       
     }(document, 'script', 'facebook-jssdk'));
 
-    </script>
+  </script>-->
     <div id="loginPage" ng-if="!loggedIn" class="container">
       <div class="row">
         <div class="col-xs-12 text-center">
@@ -50,10 +50,12 @@
             <h4>What</h4>
             <div class="row">
               <div class="col-xs-6">
-                <table>
-                  <tr ng-repeat="x in what.list">
+                <table class="table">
+                  <tr  ng-repeat="x in what.list">
                     <td ng-bind="x.word"></td>
                     <td ng-bind="x.count"></td>
+
+                    <!--<td><button ng-click="popWordCloud(x)" class="btn">See Context</button></td>-->
                   </tr>
                 </table>
               </div>
@@ -85,7 +87,7 @@
             <div class="row">
               <div class="col-xs-6">
 
-                <canvas id="why-chart" style=""></canvas>
+                <!--   <canvas id="why-chart" style=""></canvas>-->
               </div>
 
               <div class="col-xs-6">
@@ -103,6 +105,7 @@
       </div>
     </div>
 
+    <div class="modal">HII</div>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="../static/libs/nv.d3.min.js"></script>

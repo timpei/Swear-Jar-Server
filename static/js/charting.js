@@ -11,8 +11,9 @@ charting.drawBarChart = function(list, targetId){
     .tooltips(false)        //Don't show tooltips
     .showValues(true)       //...instead, show the bar value right on top of each bar.
     .transitionDuration(350);
+  debugger;
 
-  d3.select('#what-chart')
+  d3.select(targetId)
     .datum(chartFormat)
     .call(chart);
 };
@@ -40,14 +41,11 @@ charting.drawWordCloud = function(list, targetId) {
   var options = {
     list: list,
     gridSize: Math.round(16 * $('#why-chart').width() / 1024),
-        // weightFactor: function (size) {
-        //   return Math.pow(size, 2.3) * $('#why-chart').width() / 1024;
-        //   },
-        fontFamily: 'Times, serif',
+    fontFamily: 'Times, serif',
         color: function (word, weight) {
           return (weight === 12) ? '#f02222' : '#c09292';
       },
-      rotateRatio: 0.5,
+        rotateRatio: 0.5,
       backgroundColor: '#E3E3E3'
   }
 
