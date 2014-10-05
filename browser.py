@@ -334,6 +334,30 @@ def getAssociatedSwearWord(fromNumber, swearWord):
         "to": received_obj
         })
 
+@app.route('/data/timeseries/<fromNumber>/<int:startdate>/<int:enddate>', methods=['GET'])
+def getMessagesByTime(fromNumber, startdate, enddate):
+    messages_collection = g.db.messages
+
+    msg_sent = messages_collection.find({
+        "reference_number": fromNumber,
+        "fromNumber": fromNumber,
+        "time": {"$gt": startdate, "$lt": enddate}
+        })
+    swears_sent = [i.pop("_id") for i in msg_sent if len(i['swear_words']) != 0]
+
+    msg_receieved = messages_collection.find({
+        "reference_number": fromNumber,
+        "toNumber": fromNumber,
+        "time": {"$gt": startdate, "$lt": enddate}
+        })
+    swears_receieved = [i.pop("_id") for i in msg_receieved if len(i['swear_words']) != 0]
+
+    return jsonify(**{
+        "from": swears_sent,
+        "to": swears_receieved
+        })
+
+
 
 @app.route('/')
 def index():
