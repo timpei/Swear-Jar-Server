@@ -63,7 +63,7 @@ service.getWho = function(userId, onSuccess){
 
 service.getWhy = function(userId, onSuccess){
 
-  var url = 'data/why/' + userId + '/' + new Date().getTime() + '/duck';
+  var url = 'data/why/' + userId + '/ass';
   $.ajax({
     method: 'GET',
     url: url,
@@ -79,7 +79,7 @@ service.getWhy = function(userId, onSuccess){
 
 
 service.getTimeseries = function(userId, onSuccess){
-  var url = 'data/timeseries/' + userId + '/' + (new Date().getTime()-(30*60*60*24)+ '/' + new Date().getTime();
+  var url = 'data/timeseries/' + userId + '/' + (new Date().getTime()-(30*60*60*24))+ '/' + new Date().getTime();
   $.ajax({
     method: 'GET',
     url: url,
