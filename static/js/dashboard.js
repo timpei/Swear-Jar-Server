@@ -28,8 +28,7 @@ var loadDashboard= function($scope){
 
 var loadWhat = function($scope){
   service.getWhat($scope.userId, function(response){
-    $scope.what = response;
-    var transformed = transformWhoData(response.freq);
+    $scope.what = transformWhoData(response.freq);
     charting.drawBarChart(transformed, '#what-chart');
   });
 };
