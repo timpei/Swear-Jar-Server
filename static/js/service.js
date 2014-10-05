@@ -76,3 +76,23 @@ service.getWhy = function(userId, onSuccess){
     }
   });
 };
+
+
+service.getTimeseries = function(userId, onSuccess){
+  var url = 'data/timeseries/' + userId + '/' + (new Date().getTime()-(30*60*60*24)+ '/' + new Date().getTime();
+  $.ajax({
+    method: 'GET',
+    url: url,
+    success: onSuccess,
+    error: function(){
+      result = {
+        '1412481668461': 23,
+        '1412481663000': 22,
+        '1412481500000': 21,
+        '1412481400000': 22,
+        '1412481300000': 23
+        };
+      onSuccess(result);
+    }
+  });
+};
