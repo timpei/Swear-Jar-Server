@@ -20,8 +20,11 @@ charting.drawBarChart = function(list, targetId){
 
 charting.drawDonutChart = function(list, targetId){
   var chart = nv.models.pieChart()
-    .x(function(d) { return d.label })
     .y(function(d) { return d.value })
+    .x(function(d) { 
+      var str = String(d.label);
+      
+      return str.substring(0,3) + '-' + str.substring(3,6) + '-' + str.substring(6); })
     .showLabels(true)     //Display pie labels
     .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
     .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
@@ -55,11 +58,10 @@ charting.drawWordCloud = function(list, targetId) {
 
 charting.drawTimeseriesChart = function(list, targetId){
     debugger;
-    var data = [{key: "line 1", values: list}];
-    var chart = nv.models.cumulativeLineChart()
+    var data = [{key: "Swearing to Others", values: list}];
+    var chart = nv.models.lineChart()
+      .useInteractiveGuideline(true)
       .x(function(d){ 
-        console.log(d);
-        debugger; 
         return d.time; 
       })
       .y(function(d){ 
@@ -68,8 +70,10 @@ charting.drawTimeseriesChart = function(list, targetId){
     chart.xAxis
       .axisLabel('Date')
       .tickFormat(function(d) {
-        return d3.time.format('%x')(new Date(d))
+        return d3.time.format('%x-%X')(new Date(d))
                                   });
+    chart.yAxis
+      .axisLabel('Swear Volume');
     /*.xAxis.axisLabel('Date')
     .xAxis.tickFormat(function(d) {
         return d3.time.format('%x')(new Date(d))
