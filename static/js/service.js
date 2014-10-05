@@ -12,6 +12,7 @@ service.getUser = function(onSuccess){
 };
 
 service.getWhat = function(userId, onSuccess){
+  /**
   //function(){
   result = {
         list : [{'word': 'Duck', 'count': 123},
@@ -20,8 +21,8 @@ service.getWhat = function(userId, onSuccess){
       };
       onSuccess(result);
    // }
+   // */
 
-  /**
   var url = '/data/words/' + userId + '/' + new Date().getTime();
   $.ajax({
     url: url,
@@ -34,13 +35,12 @@ service.getWhat = function(userId, onSuccess){
       onSuccess(result);
     }
   });
-  **/
 };
 
 
 service.getWho = function(userId, onSuccess){
 
-  var url = '/data/who/' + userId + '/' + new Date().getTime();
+  var url = '/data/who/' + userId;
   $.ajax({
     method: 'GET',
     url: url,
