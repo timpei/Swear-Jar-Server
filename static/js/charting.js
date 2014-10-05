@@ -20,8 +20,11 @@ charting.drawBarChart = function(list, targetId){
 
 charting.drawDonutChart = function(list, targetId){
   var chart = nv.models.pieChart()
-    .x(function(d) { return d.label })
     .y(function(d) { return d.value })
+    .x(function(d) { 
+      var str = String(d.label);
+      
+      return str.substring(0,3) + '-' + str.substring(3,6) + '-' + str.substring(6); })
     .showLabels(true)     //Display pie labels
     .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
     .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
@@ -40,13 +43,15 @@ charting.drawWordCloud = function(list, targetId) {
   //WordCloud(document.getElementById(targetId), {'list': list });
   var options = {
     list: list,
-    gridSize: Math.round(16 * $('#why-chart').width() / 1024),
+    //gridSize: Math.round(16 * $('#why-chart').width() / 1024),
     fontFamily: 'Times, serif',
-        color: function (word, weight) {
-          return (weight === 12) ? '#f02222' : '#c09292';
-      },
-        rotateRatio: 0.5,
-      backgroundColor: '#E3E3E3'
+    color: function (word, weight) {
+      return (weight === 12) ? '#f02222' : '#c09292';
+    },
+    minSize: 12,
+    shuffle: 1,
+        //rotateRatio: 0.5,
+    backgroundColor: '#E3E3E3'
   }
 
   WordCloud(document.getElementById(targetId), options);
@@ -55,11 +60,10 @@ charting.drawWordCloud = function(list, targetId) {
 
 charting.drawTimeseriesChart = function(list, targetId){
     debugger;
-    var data = [{key: "line 1", values: list}];
-    var chart = nv.models.cumulativeLineChart()
+    var data = [{key: "Swearing to Others", values: list}];
+    var chart = nv.models.lineChart()
+      .useInteractiveGuideline(true)
       .x(function(d){ 
-        console.log(d);
-        debugger; 
         return d.time; 
       })
       .y(function(d){ 
@@ -68,8 +72,10 @@ charting.drawTimeseriesChart = function(list, targetId){
     chart.xAxis
       .axisLabel('Date')
       .tickFormat(function(d) {
-        return d3.time.format('%x')(new Date(d))
+        return d3.time.format('%x-%X')(new Date(d))
                                   });
+    chart.yAxis
+      .axisLabel('Swear Volume');
     /*.xAxis.axisLabel('Date')
     .xAxis.tickFormat(function(d) {
         return d3.time.format('%x')(new Date(d))

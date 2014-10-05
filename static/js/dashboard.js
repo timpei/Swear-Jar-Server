@@ -15,12 +15,15 @@ var loadDashboard= function($scope){
     
   });
   $scope.popWordCloud = function(x){
-    $('#myModal').modal('toggle');
-    $('#wordCloud').empty();
+    
     service.getWhy($scope.userId, x.label, function(response){
-      
+      $('#wordCloud').empty();
+      $('#myModalLabel').empty();
+      $('#myModalLabel').text('Top Associated Words with '+ x.label);  
       transformed = combineHashToArray(response.from, response.to);
       charting.drawWordCloud(transformed, 'wordCloud');
+
+      $('#myModal').modal('toggle');
     });
   };
   
@@ -96,9 +99,7 @@ var loadWhy = function($scope){
 
 
 var loadTimeseries = function($scope){
-  debugger;
   service.getTimeseries($scope.userId, function(response){
-    debugger;
     var dateArray = transformData(response.from);
     charting.drawTimeseriesChart(response.from,'#timeseries-chart');
   });

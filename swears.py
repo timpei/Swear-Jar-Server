@@ -31,13 +31,13 @@ swearList = {
 }
 
 cleanSwearList = {
-	"poop": 1,
-	"doodoo": 1,
+	"poop": 4,
+	"doodoo": 3,
 	"poopoo": 1,
 	"peepee": 1,
-	"dummy": 1,
+	"dummy": 5,
 	"dumdum": 1,
 	"butthole": 2,
-	"bumbum": 1,
+	"bumbum": 4,
 	"stupid": 2
 }

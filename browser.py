@@ -72,8 +72,8 @@ def logSentMessage():
 
     # Compute swear score
     for word in words:
-        score += getSwearScore(trimWord(word))
-        if score > 0:
+        if getSwearScore(trimWord(word)) > 0:
+            score += getSwearScore(trimWord(word))
             swearWords.append(trimWord(word))
 
     if len(swearWords) != 0:
@@ -190,8 +190,8 @@ def logReceiveMessage():
     exitCode = 0 # Modify the exit code accordingly
 
     for word in words:
-        score += getSwearScore(trimWord(word))
-        if score > 0:
+        if getSwearScore(trimWord(word)) > 0:
+            score += getSwearScore(trimWord(word))
             swearWords.append(trimWord(word))
 
     if len(swearWords) != 0:
@@ -327,12 +327,15 @@ def getWordFrequency(userNumber, date = 0):
 def getMemberRelationships(userNumber, date = 0):
     from_freq_collection = g.db.from_member_freq
     from_freq = from_freq_collection.find_one({"fromNumber": userNumber})
+    from_ret = {} if from_freq is None else from_freq["to"]
+
     to_freq_collection = g.db.to_member_freq
     to_freq = to_freq_collection.find_one({"toNumber": userNumber})
+    to_ret = {} if to_freq is None else to_freq["from"]
 
     return jsonify(**{
-        "from": from_freq["to"], 
-        "to": to_freq["from"]
+        "from": from_ret,
+        "to": to_ret
         })
 
 @app.route('/data/why/<fromNumber>/<swearWord>', methods=['GET'])
