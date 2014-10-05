@@ -17,6 +17,8 @@ var loadDashboard= function($scope){
   $scope.popWordCloud = function(x){
     $('#myModal').modal('toggle');
     $('#wordCloud').empty();
+    $('#myModalLabel').empty();
+    $('#myModalLabel').text('Top Associated Words with '+ x.label);
     service.getWhy($scope.userId, x.label, function(response){
       
       transformed = combineHashToArray(response.from, response.to);
@@ -96,9 +98,7 @@ var loadWhy = function($scope){
 
 
 var loadTimeseries = function($scope){
-  debugger;
   service.getTimeseries($scope.userId, function(response){
-    debugger;
     var dateArray = transformData(response.from);
     charting.drawTimeseriesChart(response.from,'#timeseries-chart');
   });

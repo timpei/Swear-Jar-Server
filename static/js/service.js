@@ -15,7 +15,6 @@ service.getUser = function(onSuccess){
 };
 
 service.getWhat = function(userId, onSuccess){
-/*  
    result = {
          "freq": {
              "ass": 1, 
@@ -24,8 +23,7 @@ service.getWhat = function(userId, onSuccess){
          }
        };
    onSuccess(result);
-   */
-  
+ /* 
   var url = '/data/words/' + userId;
   $.ajax({
     url: url,
@@ -41,7 +39,9 @@ service.getWhat = function(userId, onSuccess){
       onSuccess(result);
     }
   });
+  */
 };
+
 
 
 service.getWho = function(userId, onSuccess){
@@ -68,14 +68,13 @@ service.getWho = function(userId, onSuccess){
 };
 
 service.getWhy = function(userId, word, onSuccess){
-/*
   
    result = {
          from: {'ass': 23, 'fat': 21, 'you': 14},
          to  : { 'ass': 12, 'poop':12}
        };
    onSuccess(result);
-   */
+   /*&
   var url = '/data/why/' + userId + '/' + word;
   $.ajax({
     method: 'GET',
@@ -89,17 +88,17 @@ service.getWhy = function(userId, word, onSuccess){
       onSuccess(result);
     }
   });
+  */
 };
 
 
 service.getTimeseries = function(userId, onSuccess){  
-  /*
     result = {
       from: [{score: 5, time: 1412460224},{score: 3, time: 1412470224},{score: 4, time:1412480224},{score: 5, time: 1412490224} ],
       to: [{score: 3, time: 1412470224},{score: 4, time:1412470224} ],
     }; 
       onSuccess(result);
-      */
+      /*
    var url = '/data/timeseries/' + userId + '/0/' + new Date().getTime();
    $.ajax({
      method: 'GET',
@@ -113,4 +112,5 @@ service.getTimeseries = function(userId, onSuccess){
        onSuccess(result);
      }
    });
+   */
 };
