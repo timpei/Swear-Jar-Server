@@ -7,7 +7,7 @@ service.getUser = function(onSuccess){
       url: url,
       success: onSuccess,
       error: function(){
-        var response = {id :'123', name : 'Clement'};
+        var response = {id :'123', name : 'Clement', number: '12345'};
         onSuccess(response);
       }
     });
@@ -16,16 +16,16 @@ service.getUser = function(onSuccess){
 };
 
 service.getWhat = function(userId, onSuccess){
-  /*
-  result = {
-        "freq": {
-            "ass": 1, 
-            "fuck": 2, 
-            "shit": 2
-        }
-      };
-  onSuccess(result);
-  */
+  
+  // result = {
+  //       "freq": {
+  //           "ass": 1, 
+  //           "fuck": 2, 
+  //           "shit": 2
+  //       }
+  //     };
+  // onSuccess(result);
+  
   var url = '/data/words/' + userId;
   $.ajax({
     url: url,
@@ -67,16 +67,16 @@ service.getWho = function(userId, onSuccess){
   });
 };
 
-service.getWhy = function(userId, onSuccess){
+service.getWhy = function(userId, word, onSuccess){
 
-  /*
-  result = {
-        from: {'ass': 23, 'fat': 21, 'you': 14},
-        to  : { 'ass': 12}
-      };
-  onSuccess(result);
-  */
-  var url = 'data/why/' + userId + '/ass';
+  
+  // result = {
+  //       from: {'ass': 23, 'fat': 21, 'you': 14},
+  //       to  : { 'ass': 12, 'poop':12}
+  //     };
+  // onSuccess(result);
+  
+  var url = '/data/why/' + userId + '/' + word;
   $.ajax({
     method: 'GET',
     url: url,
@@ -93,7 +93,7 @@ service.getWhy = function(userId, onSuccess){
 
 
 service.getTimeseries = function(userId, onSuccess){
-  var url = 'data/timeseries/' + userId + '/' + (new Date().getTime()-(30*60*60*24))+ '/' + new Date().getTime();
+  var url = '/data/timeseries/' + userId + '/' + (new Date().getTime()-(30*60*60*24))+ '/' + new Date().getTime();
   $.ajax({
     method: 'GET',
     url: url,

@@ -18,11 +18,11 @@ var loadDashboard= function($scope){
   $scope.popWordCloud = function(x){
     $('#myModal').modal('toggle');
     $('#wordCloud').empty();
-    service.getWhy($scope.userId, function(response){
+    debugger;
+    service.getWhy($scope.userId, x.label, function(response){
       debugger;
       
-      transformedFrom = transformDataArray(response.from);
-      
+      transformed = combineHashToArray(response.from, response.to);
       charting.drawWordCloud(transformed, 'wordCloud');
     });
   };
@@ -65,6 +65,17 @@ var transformData = function(toArray){
 };
 
 var combineHashToArray = function(hash1, hash2){
+  var tmphash = hash1;
+  for (var key in hash2) {
+    if (tmphash.hasOwnProperty(key)){
+      tmphash[key] += hash2[key];
+    }
+    else {
+      tmphash[key] = hash2[key];
+    }
+  }
+  var result = transformDataArray(tmphash);
+  return result;
 };
 
 var transformDataArray = function(toArray){
