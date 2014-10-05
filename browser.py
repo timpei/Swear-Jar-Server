@@ -264,7 +264,7 @@ def register(number):
     facebookId = request.form["facebook_id"]
 
     members_collection = g.db.member_numbers
-    success = 1
+    success = 0
 
     if members_collection.find({"number": newNumber}).count() == 0:
         # Add the member to the members table
@@ -273,6 +273,7 @@ def register(number):
             "name": newName,
             "facebook_id": facebookId
             })
+        success = 1
 
     return jsonify(**{
         "success": success 
