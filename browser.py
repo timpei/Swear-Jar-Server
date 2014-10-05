@@ -311,8 +311,8 @@ def getMemberRelationships(userNumber, date = 0):
     to_freq = to_freq_collection.find_one({"toNumber": userNumber})
 
     return jsonify(**{
-        "from": from_freq["from"], 
-        "to": to_freq["to"]
+        "from": from_freq["to"], 
+        "to": to_freq["from"]
         })
 
 @app.route('/data/why/<fromNumber>/<swearWord>', methods=['GET'])
