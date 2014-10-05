@@ -60,7 +60,7 @@ charting.drawTimeseriesChart = function(list, targetId){
     .xAxis.axisLabel('Date')
     .xAxis.tickFormat(function(d) {
         return d3.time.format('%x')(new Date(d))
-    });
+    })
     .yAxis.axisLabel('Times Sworn')
     ;
 
