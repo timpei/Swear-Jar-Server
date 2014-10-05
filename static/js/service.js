@@ -23,7 +23,7 @@ service.getWhat = function(userId, onSuccess){
    // }
    // */
 
-  var url = '/data/words/' + userId + '/' + new Date().getTime();
+  var url = '/data/words/' + userId;
   $.ajax({
     url: url,
     success: onSuccess,
