@@ -73,7 +73,7 @@ charting.drawTimeseriesChart = function(list, targetId){
     chart.xAxis
       .axisLabel('Date')
       .tickFormat(function(d) {
-        return d3.time.format('%I:%M %p')(new Date(d))
+        return d3.time.format('%x')(new Date(d))
                                   });
     chart.yAxis
       .axisLabel('Swear Volume');
