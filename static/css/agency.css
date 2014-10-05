@@ -880,3 +880,11 @@ body {
 #phone3 {
     background-image: url(../img/phone3.jpg);
 }
+
+.analytics_photo {
+    height: 225px;
+}
+
+.analytics2{
+    max-width: 450px;
+}
