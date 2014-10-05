@@ -9,7 +9,6 @@ var loadDashboard= function($scope){
     $scope.userName = response.name;
       loadWho($scope);
       loadWhat($scope);
-      loadWhy($scope);
       loadTimeseries($scope);
 
     $scope.$apply();
@@ -97,8 +96,10 @@ var loadWhy = function($scope){
 
 
 var loadTimeseries = function($scope){
+  debugger;
   service.getTimeseries($scope.userId, function(response){
+    debugger;
     var dateArray = transformData(response.from);
-    charting.drawTimeseriesChart(dateArray,'#timeseries-chart');
+    charting.drawTimeseriesChart(response.from,'#timeseries-chart');
   });
 };
