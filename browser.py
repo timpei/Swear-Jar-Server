@@ -12,6 +12,8 @@ DB_PASS = os.environ['DB_PASS']
 DB_URL = "mongodb://%s:%s@ds043220.mongolab.com:43220/swearjar" % (DB_USER, DB_PASS)
 DEBUG = True
 
+EXPLICIT = False
+
 app = Flask(__name__)
 app.config.from_object(__name__)
 client = MongoClient(DB_URL)
@@ -30,10 +32,16 @@ def before_request():
 #    return
 
 def getSwearScore(word):
-    if word in swears.swearList:
-        return swears.swearList[word]
+    if EXPLICIT: 
+        if word in swears.swearList:
+            return swears.swearList[word]
+        else:
+            return 0
     else:
-        return 0
+        if word in swears.cleanSwearList:
+            return swears.cleanSwearList[word]
+        else:
+            return 0
 
 def trimWord(word):
     return word.lower().strip('.,!?:"\'')
