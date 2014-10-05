@@ -10,7 +10,7 @@ var loadDashboard= function($scope){
       loadWho($scope);
       loadWhat($scope);
       loadWhy($scope);
-      loadTimeseries($scope);
+//      loadTimeseries($scope);
 
     $scope.$apply();
     
@@ -71,6 +71,6 @@ var loadWhy = function($scope){
 var loadTimeseries = function($scope){
   service.getTimeseries($scope.userId, function(response){
     var dateArray = transformWhoData(response);
-    charting.drawTimeseriesChart(dateArray,'#timeseries-chart');
+//    charting.drawTimeseriesChart(dateArray,'#timeseries-chart');
   });
 };
