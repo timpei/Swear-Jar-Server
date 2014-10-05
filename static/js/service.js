@@ -63,7 +63,7 @@ service.getWho = function(userId, onSuccess){
 
 service.getWhy = function(userId, onSuccess){
 
-  var url = 'data/why/' + userId + '/' + new Date().getTime() + '/duck';
+  var url = 'data/why/' + userId + '/ass';
   $.ajax({
     method: 'GET',
     url: url,
