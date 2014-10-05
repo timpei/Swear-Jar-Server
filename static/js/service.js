@@ -18,8 +18,8 @@ service.getWhat = function(userId, onSuccess){
     success: onSuccess,
     error: function(){
       result = {
-        freq : [{'word': 'Duck', 'count': 123},
-                {'word': 'Poop', 'count':145}]
+        freq : {'word': 123,
+                'Poop':145}
       };
       onSuccess(result);
     }
