@@ -29,7 +29,7 @@ service.getWhat = function(userId, onSuccess){
     success: onSuccess,
     error: function(){
       result = {
-        list : [{'word': 'Duck', 'count': 123},
+        freq : [{'word': 'Duck', 'count': 123},
                 {'word': 'Poop', 'count':145}]
       };
       onSuccess(result);
