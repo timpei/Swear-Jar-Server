@@ -285,10 +285,10 @@ def emptyJar(number):
     jar = jars_collection.find_one({"fromNumber": number})
 
     if jar is None:
-        return jsonify(**{"success": False})
+        return jsonify(**{"success": 0})
     else:
         jars_collection.update({"fromNumber": number}, {"$set": {"sum": 0}})
-        return jsonify(**{"success": True})
+        return jsonify(**{"success": 1})
 
 """
 Web APIs
