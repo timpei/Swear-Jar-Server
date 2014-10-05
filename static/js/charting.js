@@ -59,7 +59,7 @@ charting.drawWordCloud = function(list, targetId) {
 
 
 charting.drawTimeseriesChart = function(list, targetId){
-    var data = [{key: "Swearing to Others", values: list.slice(0,20)}];
+    var data = [{key: "Swearing to Others", values: list.slice(0,20), area: true}];
     var chart = nv.models.lineChart()
       .useInteractiveGuideline(true)
       .interpolate("basis")
