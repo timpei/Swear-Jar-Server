@@ -351,7 +351,8 @@ def getMessagesByTime(fromNumber, startdate, enddate):
         "time": {"$gt": startdate, "$lt": enddate}
         })
     swears_receieved = [i.pop("_id") for i in msg_receieved if len(i['swear_words']) != 0]
-
+    print msg_sent
+    print msg_receieved
     return jsonify(**{
         "from": swears_sent,
         "to": swears_receieved
