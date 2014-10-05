@@ -59,8 +59,7 @@ charting.drawWordCloud = function(list, targetId) {
 
 
 charting.drawTimeseriesChart = function(list, targetId){
-    debugger;
-    var data = [{key: "Swearing to Others", values: list}];
+    var data = [{key: "Swearing to Others", values: list.slice(0,20)}];
     var chart = nv.models.lineChart()
       .useInteractiveGuideline(true)
       .interpolate("basis")
@@ -73,7 +72,7 @@ charting.drawTimeseriesChart = function(list, targetId){
     chart.xAxis
       .axisLabel('Date')
       .tickFormat(function(d) {
-        return d3.time.format('%x-%X')(new Date(d))
+        return d3.time.format('%x')(new Date(d))
                                   });
     chart.yAxis
       .axisLabel('Swear Volume');
