@@ -92,7 +92,7 @@
           <div class="container">
               <div class="intro-text">
                   <div class="intro-heading">Swear Jar</div>
-                  <div class="intro-lead-in">A mobile app that fixes one potty-mouth at a time!</div>
+                  <div class="intro-lead-in">Fixing one potty-mouth at a time</div>
                   <a href="#product" class="page-scroll btn btn-xl">Tell Me More</a>
                   <a href="#" class="page-scroll btn btn-xl" ng-click="login()">Log In for Analytics</a>
               </div>
@@ -112,12 +112,12 @@
                   <div class="col-md-4">
                       <div class="phone-preview" id="phone1"></div>
                       <h4 class="service-heading">A Virtual Swear Jar</h4>
-                      <p class="text-muted">Our app acts as a virtual swear jar that allows you to keep track of how much you type swear words on your mobile device.</p>
+                      <p class="text-muted">Our app is a virtual swear jar that allows you to keep track of how often you type swear words on your mobile device.</p>
                   </div>
                   <div class="col-md-4">
                       <div class="phone-preview" id="phone2"></div>
                       <h4 class="service-heading">A Dollar per Swear</h4>
-                      <p class="text-muted">We track the times you swear to your friends, and place money into your virtual swear jar.</p>
+                      <p class="text-muted">We record every time you swear to your friends, and place money into your virtual swear jar.</p>
                   </div>
                   <div class="col-md-4">
                       <div class="phone-preview" id="phone3"></div>
@@ -145,7 +145,7 @@
                         <img src="../static/img/analytics1.png" class="img-responsive" alt="">
                       </div>
                       <h4 class="service-heading">Favorite Phrases</h4>
-                      <p class="text-muted">Discover your go to swear words and see the common words you use them with.</p>
+                      <p class="text-muted">Discover your go-to swear words and see the common words you use them with.</p>
                   </div>
                   <div class="col-md-4">
                       <div class="analytics-preview" id="analytics3"></div>
@@ -163,7 +163,7 @@
                         <img src="../static/img/analytics3.png" class="img-responsive" alt="">
                       </div>
                       <h4 class="service-heading">Foul Friends</h4>
-                      <p class="text-muted">Find out which of your friends you swear the most with, and who swears most at you!</p>
+                      <p class="text-muted">Find out which of your friends you swear the most at, and who swears most at you!</p>
                   </div>
                 </div>
               </div>
@@ -207,14 +207,14 @@
                       <div class="team-member">
                           <img src="../static/img/team/4.png" class="img-responsive img-circle" alt="">
                           <h4>Clement Fung</h4>
-                          <p class="text-muted">Project Manager & Backend Developer</p>
+                          <p class="text-muted">Project Manager & Backend Engineer</p>
                       </div>
                   </div>
                   <div class="col-sm-6">
                       <div class="team-member">
                           <img src="../static/img/team/5.png" class="img-responsive img-circle" alt="">
                           <h4>Christopher Stern</h4>
-                          <p class="text-muted">Designer & Frontend Developer</p>
+                          <p class="text-muted">Designer & Data Scientist</p>
                       </div>
                   </div>
               </div>
@@ -236,9 +236,9 @@
       </footer>
     </div>
     <div id="dashboard" ng-if="loggedIn" class="container">
-      <header class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-brand navbar-left" >Swear Less</div>
-        <div class="navbar-brand navbar-right" ng-bind="userName">
+      <header class="navbar navbar-inverse navbar-fixed-top" style="background-image:none;">
+        <div class="navbar-brand navbar-left" style="color:white;" >Swear Less</div>
+        <div class="navbar-brand navbar-right" style="color:white;" ng-bind="userName">
         </div>
       </header>
       <div>
@@ -282,11 +282,11 @@
       <div class="well">
         <div class="row">
           <div class="col-xs-6">
-            <h1 class="text-center">Who You Swear To</h1>
+            <h1 class="text-center">Who Swears To You</h1>
             <svg id="who-chart-to" style="height:300px;"></svg>
           </div>
           <div class="col-xs-6">
-            <h1 class="text-center">Who Swears to You</h1>
+            <h1 class="text-center">Whom You Swear To</h1>
             <svg id="who-chart-from" style="height:300px;"></svg>
           </div>
         </div>

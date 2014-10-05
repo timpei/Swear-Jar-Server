@@ -24,7 +24,7 @@ charting.drawDonutChart = function(list, targetId){
     .x(function(d) { 
       var str = String(d.label);
       
-      return str.substring(0,3) + '-' + str.substring(3,6) + '-' + str.substring(6); })
+      return str; })
     .showLabels(true)     //Display pie labels
     .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
     .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
@@ -41,6 +41,7 @@ charting.drawDonutChart = function(list, targetId){
 
 charting.drawWordCloud = function(list, targetId) {
   //WordCloud(document.getElementById(targetId), {'list': list });
+  console.log("Drawing Cloud: ", list)
   var options = {
     list: list,
     //gridSize: Math.round(16 * $('#why-chart').width() / 1024),
@@ -59,10 +60,10 @@ charting.drawWordCloud = function(list, targetId) {
 
 
 charting.drawTimeseriesChart = function(list, targetId){
-    debugger;
-    var data = [{key: "Swearing to Others", values: list}];
+    var data = [{key: "Swearing to Others", values: list.slice(0,20), area: true}];
     var chart = nv.models.lineChart()
       .useInteractiveGuideline(true)
+      .interpolate("basis")
       .x(function(d){ 
         return d.time; 
       })
@@ -72,7 +73,7 @@ charting.drawTimeseriesChart = function(list, targetId){
     chart.xAxis
       .axisLabel('Date')
       .tickFormat(function(d) {
-        return d3.time.format('%x-%X')(new Date(d))
+        return d3.time.format('%I:%M %p')(new Date(d))
                                   });
     chart.yAxis
       .axisLabel('Swear Volume');
