@@ -94,15 +94,23 @@ service.getWhy = function(userId, word, onSuccess){
 
 
 service.getTimeseries = function(userId, onSuccess){  
-  /*
+  
     result = {
 
-      from: [{score: 5, time: 1412460224},{score: 3, time: 1412470224},{score: 4, time:1412480224},{score: 5, time: 1412490224} ],
+      from: [
+      {score: 18, time: 1412430224},
+      {score: 13, time: 1412440224},
+      {score: 17, time: 1412450224},
+      {score: 9, time: 1412460224},
+      {score: 13, time: 1412470224},
+      {score: 6, time: 1412480224},
+      {score: 5, time: 1412490224} 
+      ],
       to: [{score: 3, time: 1412470224},{score: 4, time:1412470224} ],
     }; 
       onSuccess(result);
-      */
-   var url = '/data/timeseries/' + userId + '/0/' + new Date().getTime();
+      
+  /* var url = '/data/timeseries/' + userId + '/0/' + new Date().getTime();
    $.ajax({
      method: 'GET',
      url: url,
@@ -114,5 +122,5 @@ service.getTimeseries = function(userId, onSuccess){
        }; 
        onSuccess(result);
      }
-   });
+   }); */
 };
