@@ -24,8 +24,9 @@ service.getWhat = function(userId, onSuccess){
          }
        };
    onSuccess(result);
-  var url = '/data/words/' + userId;
   */
+
+  var url = '/data/words/' + userId;
   $.ajax({
     url: url,
     success: onSuccess,
