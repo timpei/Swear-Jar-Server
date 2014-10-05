@@ -45,13 +45,13 @@ charting.drawWordCloud = function(list, targetId) {
     list: list,
     //gridSize: Math.round(16 * $('#why-chart').width() / 1024),
     fontFamily: 'Times, serif',
-        color: function (word, weight) {
-          return (weight === 12) ? '#f02222' : '#c09292';
-      },
-      minSize: 30,
-      shuffle: 1,
+    color: function (word, weight) {
+      return (weight === 12) ? '#f02222' : '#c09292';
+    },
+    minSize: 12,
+    shuffle: 1,
         //rotateRatio: 0.5,
-      backgroundColor: '#E3E3E3'
+    backgroundColor: '#E3E3E3'
   }
 
   WordCloud(document.getElementById(targetId), options);
