@@ -347,7 +347,7 @@ def getMessagesByTime(fromNumber, startdate, enddate):
 
     msg_receieved = messages_collection.find({
         "reference_number": fromNumber,
-        "toNumber": toNumber,
+        "toNumber": fromNumber,
         "time": {"$gt": startdate, "$lt": enddate}
         })
     swears_receieved = [i for i in msg_receieved if len(i['swear_words']) != 0]
