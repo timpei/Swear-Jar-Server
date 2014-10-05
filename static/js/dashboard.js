@@ -5,7 +5,7 @@ var loadDashboard= function($scope){
       $scope.message = 'Fetched after 3 seconds'; 
       console.log('message:' + $scope.message);
     });
-    $scope.userId = response.id;
+    $scope.userId = response.number;
     $scope.userName = response.first_name + ' ' + response.last_name;
       loadWho($scope);
       loadWhat($scope);

@@ -8,8 +8,7 @@ from pymongo import MongoClient
 from flask import Flask, request, Response, session, g, redirect, url_for, abort, render_template, flash, jsonify
 
 
-#DB_URL = "mongodb://admin:admin@ds043220.mongolab.com:43220/swearjar"
-DB_URL = "mongodb://localhost:27017"
+DB_URL = "mongodb://calhacks:12345@ds043220.mongolab.com:43220/swearjar"
 DEBUG = True
 
 app = Flask(__name__)
@@ -22,7 +21,7 @@ def hello():
 
 @app.before_request
 def before_request():
-    g.db = client.swear_jar
+    g.db = client.swearjar
 
 #@app.teardown_request
 #def teardown_request(exception):
@@ -258,39 +257,43 @@ def getScore(number):
     else:
         return jsonify(**{"score": jar['sum']})
 
-@app.route('/register', methods=['PUT'])
-def register():
-    newNumber = request.form["number"]
+@app.route('/register/<number>', methods=['POST'])   
+def register(number):
+    newNumber = number
     newName = request.form["name"]
     facebookId = request.form["facebook_id"]
 
     members_collection = g.db.member_numbers
-    exitCode = 0
+    success = 0
 
-    # Add the member to the members table
-    members_collection.insert({
-        "number": newNumber,
-        "name": newName,
-        "facebook_id": facebookId
-        })
+    if members_collection.find({"number": newNumber}).count() == 0:
+        # Add the member to the members table
+        members_collection.insert({
+            "number": newNumber,
+            "name": newName,
+            "facebook_id": facebookId
+            })
+        success = 1
 
     return jsonify(**{
-        "success": exitCode 
+        "success": success 
         })
 
 
 """
 Web APIs
 """
-@app.route('/data/member/<userNumber>', methods=['GET'])
-def getUserInfo(userNumber):
+@app.route('/data/member/<fb_id>', methods=['GET'])
+def getUserInfo(fb_id):
     user_collection = g.db.member_numbers
-    member_data = user_collection.find_one({"number": userNumber})
-    member_data.pop("_id")
+    member_data = user_collection.find_one({"facebook_id": fb_id})
+    if member_data is None:
+        member_data = {}
+    else:
+        member_data.pop("_id")
     return jsonify(**member_data)
 
 @app.route('/data/words/<userNumber>', methods=['GET'])
-@app.route('/data/words/<userNumber>/<int:date>', methods=['GET'])
 def getWordFrequency(userNumber, date = 0):
     word_freq_collection = g.db.word_frequency
     word_freq = word_freq_collection.find_one({"fromNumber": userNumber})
@@ -301,7 +304,6 @@ def getWordFrequency(userNumber, date = 0):
         return jsonify(**{"freq": word_freq['freq']})
 
 @app.route('/data/who/<userNumber>', methods=['GET'])
-@app.route('/data/who/<userNumber>/<int:date>', methods=['GET'])
 def getMemberRelationships(userNumber, date = 0):
     from_freq_collection = g.db.from_member_freq
     from_freq = from_freq_collection.find_one({"fromNumber": userNumber})
@@ -309,8 +311,8 @@ def getMemberRelationships(userNumber, date = 0):
     to_freq = to_freq_collection.find_one({"toNumber": userNumber})
 
     return jsonify(**{
-        "from": from_freq["from"], 
-        "to": to_freq["to"]
+        "from": from_freq["to"], 
+        "to": to_freq["from"]
         })
 
 @app.route('/data/why/<fromNumber>/<swearWord>', methods=['GET'])
