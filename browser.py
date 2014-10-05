@@ -283,10 +283,10 @@ def register(number):
 """
 Web APIs
 """
-@app.route('/data/member/<userNumber>', methods=['GET'])
-def getUserInfo(userNumber):
+@app.route('/data/member/<fb_id>', methods=['GET'])
+def getUserInfo(fb_id):
     user_collection = g.db.member_numbers
-    member_data = user_collection.find_one({"number": userNumber})
+    member_data = user_collection.find_one({"facebook_id": fb_id})
     member_data.pop("_id")
     return jsonify(**member_data)
 
