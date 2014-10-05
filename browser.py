@@ -257,7 +257,7 @@ def getScore(number):
     else:
         return jsonify(**{"score": jar['sum']})
 
-@app.route('/register<number>', methods=['POST'])   
+@app.route('/register/<number>', methods=['POST'])   
 def register(number):
     newNumber = number
     newName = request.form["name"]
