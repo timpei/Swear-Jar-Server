@@ -304,9 +304,19 @@ def emptyJar(number):
 Web APIs
 """
 @app.route('/data/member/<fb_id>', methods=['GET'])
-def getUserInfo(fb_id):
+def getUserInfoByFb(fb_id):
     user_collection = g.db.member_numbers
     member_data = user_collection.find_one({"facebook_id": fb_id})
+    if member_data is None:
+        member_data = {}
+    else:
+        member_data.pop("_id")
+    return jsonify(**member_data)
+
+@app.route('/data/member/number/<number>', methods=['GET'])
+def getUserInfoByNumber(number):
+    user_collection = g.db.member_numbers
+    member_data = user_collection.find_one({"number": number})
     if member_data is None:
         member_data = {}
     else:
