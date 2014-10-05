@@ -98,15 +98,18 @@ service.getTimeseries = function(userId, onSuccess){
     result = {
 
       from: [
-      {score: 18, time: 1412130224},
-      {score: 13, time: 1412240224},
-      {score: 17, time: 1412350224},
-      {score: 9, time: 1412460224},
-      {score: 13, time: 1412570224},
-      {score: 6, time: 1412680224},
-      {score: 5, time: 1412790224} 
+      {score: 18, time: 1412130224000},
+      {score: 13, time: 1412240224000},
+      {score: 17, time: 1412350224000},
+      {score: 9, time: 1412460224000},
+      {score: 13, time: 1412570224000},
+      {score: 6, time: 1412680224000},
+      {score: 5, time: 1412790224000} 
       ],
-      to: [{score: 3, time: 1412470224},{score: 4, time:1412470224} ],
+      to: [
+      {score: 3, time: 1412470224000},
+      {score: 4, time: 1412470224000} 
+      ],
     }; 
       onSuccess(result);
       
