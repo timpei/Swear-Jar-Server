@@ -51,10 +51,11 @@
             <div class="row">
               <div class="col-xs-6">
                 <table class="table">
-                  <tr  ng-repeat="x in what.list">
-                    <td ng-bind="x.word"></td>
-                    <td ng-bind="x.count"></td>
+                  <tr  ng-repeat="x in what">
+                    <td ng-bind="x.label"></td>
+                    <td ng-bind="x.value"></td>
 
+                    <td><button ng-click="popWordCloud(x)" class="btn">Show Context</button></td>
                     <!--<td><button ng-click="popWordCloud(x)" class="btn">See Context</button></td>-->
                   </tr>
                 </table>
@@ -83,30 +84,6 @@
       <div id="dashboard-labels" class="row">
         <div class="col-xs-12" >
           <div class="well">
-            <h4>Why</h4>
-            <div class="row">
-              <div class="col-xs-6">
-
-                <!--   <canvas id="why-chart" style=""></canvas>-->
-              </div>
-
-              <div class="col-xs-6">
-                <table>
-                <tr ng-repeat="x in what">
-                  <td ng-bind="x.label"></td>
-                  <td ng-bind="x.value"></td>
-                  <td><button class="btn">Show Context</button></td>
-                </tr>
-              </table>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="dashboard-labels" class="row">
-        <div class="col-xs-12" >
-          <div class="well">
             <h4>Time Series</h4>
             <div class="row">
               <div class="col-xs-6">
@@ -118,14 +95,31 @@
       </div>
     </div>
 
-    <div class="modal">HII</div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div id="" class="modal-body">
+            <canvas id="wordCloud"></canvas>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script src="../static/libs/jquery-1.11.1.min.js"></script> <script src="../static/js/service.js"></script> <script src="../static/js/dashboard.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="../static/libs/nv.d3.min.js"></script>
   <script src="../static/js/main.js"></script>
   <script src="../static/js/charting.js"></script>
   <script src="../static/js/service.js"></script>
-  <script src="../static/libs/jquery-1.11.1.min.js"></script> <script src="../static/js/service.js"></script> <script src="../static/js/dashboard.js"></script>
   <script src="../static/libs/wordcloud2.js"></script>
 
   </body>

@@ -37,7 +37,7 @@ charting.drawDonutChart = function(list, targetId){
 
 
 charting.drawWordCloud = function(list, targetId) {
-  // WordCloud(document.getElementById(targetId), {'list': list });
+  //WordCloud(document.getElementById(targetId), {'list': list });
   var options = {
     list: list,
     gridSize: Math.round(16 * $('#why-chart').width() / 1024),
@@ -54,7 +54,6 @@ charting.drawWordCloud = function(list, targetId) {
 
 
 charting.drawTimeseriesChart = function(list, targetId){
-    debugger;
     var chart = nv.models.linechart()
     .margin({left:100})
     .xAxis.axisLabel('Date')
