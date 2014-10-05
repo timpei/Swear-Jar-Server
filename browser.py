@@ -264,17 +264,18 @@ def register(number):
     facebookId = request.form["facebook_id"]
 
     members_collection = g.db.member_numbers
-    exitCode = 0
+    success = 1
 
-    # Add the member to the members table
-    members_collection.insert({
-        "number": newNumber,
-        "name": newName,
-        "facebook_id": facebookId
-        })
+    if members_collection.find({"number": newNumber}).count() == 0:
+        # Add the member to the members table
+        members_collection.insert({
+            "number": newNumber,
+            "name": newName,
+            "facebook_id": facebookId
+            })
 
     return jsonify(**{
-        "success": exitCode 
+        "success": success 
         })
 
 
