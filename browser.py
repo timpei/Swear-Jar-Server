@@ -72,8 +72,8 @@ def logSentMessage():
 
     # Compute swear score
     for word in words:
-        score += getSwearScore(trimWord(word))
-        if score > 0:
+        if getSwearScore(trimWord(word)) > 0:
+            score += getSwearScore(trimWord(word))
             swearWords.append(trimWord(word))
 
     if len(swearWords) != 0:
@@ -190,8 +190,8 @@ def logReceiveMessage():
     exitCode = 0 # Modify the exit code accordingly
 
     for word in words:
-        score += getSwearScore(trimWord(word))
-        if score > 0:
+        if getSwearScore(trimWord(word)) > 0:
+            score += getSwearScore(trimWord(word))
             swearWords.append(trimWord(word))
 
     if len(swearWords) != 0:
