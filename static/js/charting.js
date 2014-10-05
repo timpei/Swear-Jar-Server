@@ -48,7 +48,7 @@ charting.drawWordCloud = function(list, targetId) {
     color: function (word, weight) {
       return (weight === 12) ? '#f02222' : '#c09292';
     },
-    minSize: 12,
+    //minSize: 12,
     shuffle: 1,
         //rotateRatio: 0.5,
     backgroundColor: '#E3E3E3'
