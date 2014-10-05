@@ -166,12 +166,10 @@ def logSentMessage():
 
 @app.route('/message/receive', methods=['POST'])
 def logReceiveMessage():
-    print request
-    print blah
-    """
     message = request.form['message']
     toNumber = request.form['number']
     fromNumber = request.form['contact_number']
+
     messages_collection = g.db.messages
     jars_collection = g.db.jars
 
@@ -249,7 +247,6 @@ def logReceiveMessage():
     return jsonify(**{
         "success": exitCode
         })
-    """
 
 @app.route('/score/<number>', methods=['GET'])
 def getScore(number):
@@ -262,6 +259,9 @@ def getScore(number):
 
 @app.route('/register', methods=['POST'])   
 def register():
+    print request.form
+    print blah
+    """
     newNumber = request.form["number"]
     newName = request.form["name"]
     facebookId = request.form["facebook_id"]
@@ -279,6 +279,8 @@ def register():
     return jsonify(**{
         "success": exitCode 
         })
+
+    """
 
 
 """
