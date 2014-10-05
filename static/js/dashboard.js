@@ -14,6 +14,7 @@ var loadWhat = function($scope){
   service.getWhat($scope.userId, function(response){
     $scope.what = response;
     charting.drawBarChart(response.list, '#what-chart');
+
     
   });
 };

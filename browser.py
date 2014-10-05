@@ -8,7 +8,8 @@ from pymongo import MongoClient
 from flask import Flask, request, Response, session, g, redirect, url_for, abort, render_template, flash, jsonify
 
 
-DB_URL = "mongodb://admin:admin@ds043220.mongolab.com:43220/swearjar"
+#DB_URL = "mongodb://admin:admin@ds043220.mongolab.com:43220/swearjar"
+DB_URL = "mongodb://localhost:27017"
 DEBUG = True
 
 app = Flask(__name__)
