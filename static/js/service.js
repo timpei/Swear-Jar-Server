@@ -16,6 +16,16 @@ service.getUser = function(onSuccess){
 };
 
 service.getWhat = function(userId, onSuccess){
+  /*
+  result = {
+        "freq": {
+            "ass": 1, 
+            "fuck": 2, 
+            "shit": 2
+        }
+      };
+  onSuccess(result);
+  */
   var url = '/data/words/' + userId;
   $.ajax({
     url: url,
@@ -59,6 +69,13 @@ service.getWho = function(userId, onSuccess){
 
 service.getWhy = function(userId, onSuccess){
 
+  /*
+  result = {
+        from: {'ass': 23, 'fat': 21, 'you': 14},
+        to  : { 'ass': 12}
+      };
+  onSuccess(result);
+  */
   var url = 'data/why/' + userId + '/ass';
   $.ajax({
     method: 'GET',
@@ -66,8 +83,9 @@ service.getWhy = function(userId, onSuccess){
     success: onSuccess,
     error: function(){
       result = {
-        list: [['duck', 21],['crap', 13],['poop', 16], ['frack', 5], ['jack', 17]]
-        };
+        from: {'ass': 23, 'fat': 21, 'you': 14},
+        to  : { 'ass': 12}
+      };
       onSuccess(result);
     }
   });

@@ -15,20 +15,25 @@ var loadDashboard= function($scope){
     $scope.$apply();
     
   });
- /*$scope.popWordCloud = function(x){
-   $('body').append(
-      '<div class="modal fade">' +
-        'hi' +
-      '</div>'
-   );
- };*/
+  $scope.popWordCloud = function(x){
+    $('#myModal').modal('toggle');
+    $('#wordCloud').empty();
+    service.getWhy($scope.userId, function(response){
+      debugger;
+      
+      transformedFrom = transformDataArray(response.from);
+      
+      charting.drawWordCloud(transformed, 'wordCloud');
+    });
+  };
   
 };
 
 
 var loadWhat = function($scope){
   service.getWhat($scope.userId, function(response){
-    $scope.what = transformWhoData(response.freq);
+    $scope.what = transformData(response.freq);
+    $scope.$apply();
     charting.drawBarChart($scope.what, '#what-chart');
   });
 };
@@ -36,16 +41,16 @@ var loadWhat = function($scope){
 var loadWho = function($scope){
   service.getWho($scope.userId, function(response){
 
-    var toArray = transformWhoData(response['to']);
+    var toArray = transformData(response['to']);
     charting.drawDonutChart(toArray, '#who-chart-to');
 
-    var fromArray = transformWhoData(response['from']);
+    var fromArray = transformData(response['from']);
     charting.drawDonutChart(fromArray, '#who-chart-from');
 
   });
 };
 
-var transformWhoData = function(toArray){
+var transformData = function(toArray){
    var whoData = [];
    for (var key in toArray) {
       if (toArray.hasOwnProperty(key)) {
@@ -54,6 +59,20 @@ var transformWhoData = function(toArray){
                "label": key, 
                "value": toArray[key]
              });
+      }
+   }  
+   return whoData;
+};
+
+var combineHashToArray = function(hash1, hash2){
+};
+
+var transformDataArray = function(toArray){
+   var whoData = [];
+   for (var key in toArray) {
+      if (toArray.hasOwnProperty(key)) {
+         whoData.push(
+             [key, toArray[key]]);
       }
    }  
    return whoData;
@@ -70,7 +89,7 @@ var loadWhy = function($scope){
 
 var loadTimeseries = function($scope){
   service.getTimeseries($scope.userId, function(response){
-    var dateArray = transformWhoData(response);
+    var dateArray = transformData(response);
 //    charting.drawTimeseriesChart(dateArray,'#timeseries-chart');
   });
 };
